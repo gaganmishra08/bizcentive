@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>942734029726-um59f3dk7fscg1se2mibq8vd0rfvuohc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.942734029726-um59f3dk7fscg1se2mibq8vd0rfvuohc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAMgwgGmb0qRmG6FDhB_N-yLuraXTqIhHI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>942734029726</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.fixurbizApp</string>
+	<key>PROJECT_ID</key>
+	<string>fixurbiz-37813</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fixurbiz-37813.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:942734029726:ios:5b441e318269f4d66b5c8f</string>
+</dict>
+</plist>

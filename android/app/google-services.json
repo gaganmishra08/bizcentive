@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "942734029726",
+    "project_id": "fixurbiz-37813",
+    "storage_bucket": "fixurbiz-37813.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942734029726:android:97690fa7c558bdcb6b5c8f",
+        "android_client_info": {
+          "package_name": "com.example.fixurbiz_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942734029726-05ju94sg85fpl5h59j7ao1cmnplj73ko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDll0Iwd8LMIN3Nz1uTJ05P2YHHsbsahxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942734029726-05ju94sg85fpl5h59j7ao1cmnplj73ko.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "942734029726-um59f3dk7fscg1se2mibq8vd0rfvuohc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fixurbizApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
