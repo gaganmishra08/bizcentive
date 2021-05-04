@@ -19,6 +19,7 @@ class AppImage {
   static const appIcon_linkedin = '${_assetPath}linkedin.png';
   static const appIcon_chat = '${_assetPath}chat.png';
   static const appIcon_advisor = '${_assetPath}user.png';
+  static const appIcon_asissment = '${_assetPath}asissment.png';
 }
 class Menu {
   final String imageName;

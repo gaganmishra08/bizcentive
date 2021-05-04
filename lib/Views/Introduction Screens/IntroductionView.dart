@@ -44,6 +44,7 @@ class IntroductionView extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
 
                               color: Colors.indigo)),
                       TextSpan(
@@ -78,7 +79,7 @@ class IntroductionView extends StatelessWidget {
                         height: 5,
                       ),
                       Text(
-                        "business incentives for everbody. Designed to help Individuals, Solopreneurs, Entrepreneurs and Small & Medium business owners, keep their dream business going, from strength to strength",
+                        "business incentives to help Individuals, Solopreneurs, Entrepreneurs and Small & Medium business owners.",
                         style: TextStyle(fontSize: 18, color: Colors.indigo,),
                       ),
                       SizedBox(height: 30),
@@ -92,7 +93,7 @@ class IntroductionView extends StatelessWidget {
                       SizedBox(height: 5),
                       Expanded(
                         child: Text(
-                          "Gosh! I wish the government gave me bizcentives to help me get through these tough COVID times!",
+                          "Gosh! I wish someone gave me bizcentives to help me get through these tough COVID times!",
                           overflow: TextOverflow.visible,
                           style: TextStyle(
                             fontSize: 18,
@@ -111,10 +112,10 @@ class IntroductionView extends StatelessWidget {
                       width: 150,
                       child: RaisedButton(
                         onPressed: () {
-                          Get.toNamed(PageIdentifier.login);
+                          Get.toNamed(PageIdentifier.signUp);
                         },
                         child: Text(
-                          "Get it!",
+                          "Got it!",
                           style: TextStyle(
                             fontSize: 23,
                             color: Colors.white,

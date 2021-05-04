@@ -1,7 +1,9 @@
+import 'package:fixurbiz_app/Utility/appImage.dart';
 import 'package:fixurbiz_app/Utility/firestore_service.dart';
 import 'package:fixurbiz_app/Utility/firestore_service.dart';
 import 'package:fixurbiz_app/Utility/google_signin.dart';
 import 'package:fixurbiz_app/Utility/shared_preferences.dart';
+import 'package:fixurbiz_app/Views/Category/selectCategoryView.dart';
 import 'package:flutter/material.dart';
 import 'package:fixurbiz_app/main.dart';
 import 'package:get/get.dart';
@@ -10,12 +12,12 @@ class SignUpView extends StatefulWidget {
   @override
   _SignUpViewState createState() => _SignUpViewState();
 }
-
+enum SignupType {Individual,Business,Other }
 class _SignUpViewState extends State<SignUpView> {
   GlobalKey _globalKey = GlobalKey();
   TextEditingController _emailController;
   TextEditingController _passController;
-
+  SignupType _character = SignupType.Individual;
   TextEditingController _cpassController;
 
   @override
@@ -36,7 +38,7 @@ class _SignUpViewState extends State<SignUpView> {
           backgroundColor: Colors.indigo,
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back_ios),
-            onPressed: () => Get.offNamed(PageIdentifier.login),
+            onPressed: () => Get.offNamed(PageIdentifier.intro),
           ),
           //You can make this transparent
           elevation: 0.0, //No shadow
@@ -44,9 +46,9 @@ class _SignUpViewState extends State<SignUpView> {
         body: SafeArea(
           child: Container(
             padding: EdgeInsets.all(15),
-            child: Column(
+            child: ListView(
               children: [
-                SizedBox(height: 20,),
+               // SizedBox(height: 10,),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -58,6 +60,9 @@ class _SignUpViewState extends State<SignUpView> {
                   ),
                 ),
                 SizedBox(height: 20,),
+                Text("Business Incentives for Individuals and Businesses",style: TextStyle(color: Colors.indigo),),
+                SizedBox(height: 10,),
+
                 Center(
                   child: Card(
                     elevation: 8.0,
@@ -68,8 +73,45 @@ class _SignUpViewState extends State<SignUpView> {
                       //height: 300,
                       padding: EdgeInsets.all(20.0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text('Choose',style: TextStyle(color: Colors.grey,fontSize: 16,fontWeight: FontWeight.bold),),
+                          ListTile(
+                            title: Text("Individual (Get amazing deals)",style: TextStyle(color: Colors.grey,fontSize: 14,fontWeight: FontWeight.normal)),
+                            leading: Radio<SignupType>(
+                              value: SignupType.Individual,
+                              groupValue: _character,
+                              onChanged: (SignupType value){
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),
+                          ListTile(
+                            title: Text("Business Owner (Grow your business)",style: TextStyle(color: Colors.grey,fontSize: 14,fontWeight: FontWeight.normal)),
+                            leading: Radio<SignupType>(
+                              value: SignupType.Business,
+                              groupValue: _character,
+                              onChanged: (SignupType value){
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),
+                          ListTile(
+                            title: Text("Other (Become a Partner)",style: TextStyle(color: Colors.grey,fontSize: 14,fontWeight: FontWeight.normal)),
+                            leading: Radio<SignupType>(
+                              value: SignupType.Other,
+                              groupValue: _character,
+                              onChanged: (SignupType value){
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),
                           _inputField(
                               controller: _emailController,
                               hintText: "Enter user email.",
@@ -94,7 +136,7 @@ class _SignUpViewState extends State<SignUpView> {
                                       "Alert", "Please fill the password");
                                 }
                               }),
-                          SizedBox(height: 10),
+                         /* SizedBox(height: 10),
                           _inputField(
                               isSecure: true,
                               controller: _cpassController,
@@ -106,7 +148,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   Get.snackbar(
                                       "Alert", "Please fill the password");
                                 }
-                              }),
+                              }),*/
                           SizedBox(height: 10),
                           Material(
                             borderRadius: BorderRadius.circular(30.0),
@@ -117,20 +159,24 @@ class _SignUpViewState extends State<SignUpView> {
                               disabledTextColor: Colors.white54,
                               onPressed: () =>
                               {
-                                SignIn()
-                                    .signUpWithEmail(
-                                    _emailController.text, _passController.text)
-                                    .then((value) {
+                                if(_emailController.text.isEmpty || _passController.text.isEmpty) {
+                                  Get.snackbar("Error", "Please fill correct Email or Password"),
+                                }else
+                              {
+                              SignIn()
+                                  .signUpWithEmail(
+                              _emailController.text, _passController.text)
+                                  .then((value) {
 
-                                      if(value != null) {
-                                        SharedPreference().addStringToSF(SharedPreference().userID,value.uid );
-
-                                        Get.offNamed(
-                                            PageIdentifier.selectCategory);
-                                      }
+                              if(value != null) {
+                              SharedPreference().addStringToSF(SharedPreference().userID,value.uid );
+                              Get.to(SelectCategory(),arguments:[_character]);
 
                               }
-                                ),
+
+                              }
+                              ),
+                              },
 
                               },
                               minWidth: double.infinity,
@@ -147,6 +193,95 @@ class _SignUpViewState extends State<SignUpView> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 10),
+                          Center(
+                            child: Text(
+                              "Or Continue with",
+                              style: TextStyle(
+                                color: Colors.indigo,
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: IconButton(
+                                      icon: Image.asset(AppImage.appIcon_google),
+                                      iconSize: Get.width * 0.02,
+                                      onPressed: () async {
+                                        SignIn().signIn().then((value){
+                                          if(value != null) {
+                                            SharedPreference().addStringToSF(SharedPreference().userID,value.uid );
+                                            Get.to(SelectCategory(),arguments:[_character]);
+                                          }
+                                        },
+                                        );
+
+                                      }),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                      icon: Image.asset(AppImage.appIcon_linkedin),
+                                      iconSize: Get.width * 0.02,
+                                      onPressed: () {
+                                        alertView();
+                                      }),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                      icon: Image.asset(AppImage.appIcon_facebook),
+                                      iconSize: Get.width * 0.02,
+                                      onPressed: () {
+                                        alertView();
+                                      }),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                      icon: Image.asset(AppImage.appIcon_apple),
+                                      iconSize: Get.width * 0.02,
+                                      onPressed: () {
+                                        alertView();
+                                      }),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+
+
+                          Material(
+
+                            //elevation: 5.0,
+                            child: MaterialButton(
+                              //enabled: _emailController.text.isNotEmpty && _passController.text.isNotEmpty ,
+
+                              onPressed: () =>
+                              {
+                                Get.offNamed(PageIdentifier.login),
+                              },
+                              minWidth: double.infinity,
+
+
+                              child: Text(
+                                "Already have an account? Login",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.indigo,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          )
+
+
                         ],
                       ),
                     ),
@@ -159,6 +294,10 @@ class _SignUpViewState extends State<SignUpView> {
       ),
 
     );
+  }
+  alertView() {
+    return Get.snackbar("Alert", "We are working on it",
+        snackPosition: SnackPosition.BOTTOM);
   }
 
   _inputField({TextEditingController controller,

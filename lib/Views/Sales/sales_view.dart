@@ -1,5 +1,6 @@
 import 'package:fixurbiz_app/Model/sales_Model.dart';
 import 'package:fixurbiz_app/Views/Sales/sales_controller.dart';
+import 'package:fixurbiz_app/Views/Sales/sales_detailview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +20,7 @@ class SalesViewState extends State<SalesView> {
   bool Is_FromSale = false;
   String _searchText = "";
   var filteredList = List<SalesModel>().obs;
-
+  List  textStr = Get.arguments;
   @override
   void initState() {
     super.initState();
@@ -32,7 +33,7 @@ class SalesViewState extends State<SalesView> {
       home: Scaffold(
         appBar: Is_FromSale? null : AppBar(
           centerTitle: true,
-          title: Text('Sales'),
+          title: Text(textStr.first),
           backgroundColor: Colors.indigo,
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back_ios),
@@ -159,7 +160,9 @@ class SalesViewState extends State<SalesView> {
                  alignment: Alignment.bottomRight,
                  child: RaisedButton(
                    onPressed: () {
-                     Get.toNamed(PageIdentifier.salesDetailView);
+                     var text = textStr.first;
+                     Get.to(SalesDetailView(),arguments:[text]);
+
                    },
                    padding: EdgeInsets.all(0),
                    color: Colors.indigo,

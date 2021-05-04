@@ -1,5 +1,6 @@
 import 'package:fixurbiz_app/Model/sales_Model.dart';
 import 'package:fixurbiz_app/Views/Sales/sales_controller.dart';
+import 'package:fixurbiz_app/Views/Sales/sales_view.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -24,7 +25,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
   bool _IsSearching;
   String _searchText = "";
   var filteredList = List<SalesModel>().obs;
-
+  List  textStr = Get.arguments;
   @override
   void initState() {
     super.initState();
@@ -49,7 +50,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
             backgroundColor: Colors.indigo,
             leading: new IconButton(
               icon: new Icon(Icons.arrow_back_ios),
-              onPressed: () => Get.offNamed(PageIdentifier.salesView),
+              onPressed: () => Get.to(SalesView(),arguments:[textStr.first]),
             ),
             bottom: TabBar(
               isScrollable: true,
@@ -244,7 +245,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                             children: [
                               SizedBox(
                                 height: 10,
-                              ),
+                              ),/*
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -288,7 +289,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                   )),
                               SizedBox(
                                 height: 10,
-                              ),
+                              ),*/
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -438,7 +439,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                   child: RaisedButton(
                                     onPressed: () {},
                                     child: Text(
-                                      'Subscribe',
+                                      '"\$399"',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
@@ -497,7 +498,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                             children: [
                               SizedBox(
                                 height: 10,
-                              ),
+                              ),/*
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -541,7 +542,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                   )),
                               SizedBox(
                                 height: 10,
-                              ),
+                              ),*/
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -691,7 +692,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                   child: RaisedButton(
                                     onPressed: () {},
                                     child: Text(
-                                      'Subscribe',
+                                      '"\$399"',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
@@ -751,6 +752,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                               SizedBox(
                                 height: 10,
                               ),
+                              /*
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -794,7 +796,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                   )),
                               SizedBox(
                                 height: 10,
-                              ),
+                              ),*/
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -944,7 +946,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                   child: RaisedButton(
                                     onPressed: () {},
                                     child: Text(
-                                      'Subscribe',
+                                      '"\$399"',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),

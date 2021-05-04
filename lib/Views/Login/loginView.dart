@@ -14,7 +14,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -45,7 +44,7 @@ class _LoginViewState extends State<LoginView> {
         backgroundColor: Colors.indigo,
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios),
-          onPressed: () => Get.offNamed(PageIdentifier.intro),
+          onPressed: () => Get.offNamed(PageIdentifier.signUp),
         ),
         //You can make this transparent
         elevation: 0.0, //No shadow
@@ -56,7 +55,7 @@ class _LoginViewState extends State<LoginView> {
           padding: EdgeInsets.all(5),
           children: [
             // Align( alignment: Alignment.topLeft,child: FlatButton(onPressed: () => Navigator.pop(context), child: Icon(Icons.arrow_back_ios))),
-            Align(
+            /* Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "bizcentive",
@@ -66,6 +65,7 @@ class _LoginViewState extends State<LoginView> {
                     color: Colors.indigo),
               ),
             ),
+
             SizedBox(height: Get.height * 0.02),
             Text(
               "Bizcentive offers access to valuable business resources and a global business community",
@@ -73,12 +73,12 @@ class _LoginViewState extends State<LoginView> {
                 fontSize: 14,
                 color: Colors.indigo,
               ),
-            ),
+            ),*/
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Text(
-              "Sign up and get access to",
+              "Small business? Sign up and get access to",
               style: TextStyle(fontSize: 14, color: Colors.indigo),
             ),
             SizedBox(
@@ -129,9 +129,28 @@ class _LoginViewState extends State<LoginView> {
                                 color: Colors.indigo,
                                 fontWeight: FontWeight.normal),
                           ),
-                        ])
+                        ]),
+
+
                   ]),
             ),
+
+            RichText(text:  TextSpan(
+                text: "Government Grants and Jobs",
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.indigo,
+                    fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+                 /* TextSpan(
+                    text: "to scale your business",
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.indigo,
+                        fontWeight: FontWeight.normal),
+                  ),*/
+                ])),
+            /*
             SizedBox(height: 10),
             RichText(
               text: TextSpan(
@@ -150,9 +169,24 @@ class _LoginViewState extends State<LoginView> {
                           fontWeight: FontWeight.normal),
                     )
                   ]),
+            ),*/
+            SizedBox(height: 20),
+            Text(
+              "Individual? Sign up and get access to",
+              style: TextStyle(fontSize: 14, color: Colors.indigo),
             ),
-            SizedBox(height: 10),
-            Center(
+            RichText(text: TextSpan(
+              text:"Amazing Bizcentives ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.indigo),
+              children: <TextSpan>[
+                TextSpan(
+                  text: "and everyday deals",style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.normal),
+                )
+              ],
+
+            )),
+
+            SizedBox(height: 20),
+            /*  Center(
                 child: Text(
               "Free.Forever.",
               style: TextStyle(
@@ -161,7 +195,7 @@ class _LoginViewState extends State<LoginView> {
                 fontWeight: FontWeight.bold,
               ),
             )),
-            SizedBox(height: 10),
+            SizedBox(height: 10),*/
             Center(
               child: Card(
                 elevation: 8.0,
@@ -245,67 +279,8 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Center(
-              child: Text(
-                "Or Continue with",
-                style: TextStyle(
-                  color: Colors.indigo,
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: IconButton(
-                        icon: Image.asset(AppImage.appIcon_google),
-                        iconSize: Get.width * 0.02,
-                        onPressed: () async {
-                          SignIn().signIn().then((value){
-                              if(value != null) {
-                                SharedPreference().addStringToSF(SharedPreference().userID,value.uid );
-                                Get.toNamed(PageIdentifier.selectCategory);
-                              }
-                          },
-                          );
+            //SizedBox(height: 20),
 
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                        icon: Image.asset(AppImage.appIcon_linkedin),
-                        iconSize: Get.width * 0.02,
-                        onPressed: () {
-                          alertView();
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                        icon: Image.asset(AppImage.appIcon_facebook),
-                        iconSize: Get.width * 0.02,
-                        onPressed: () {
-                          alertView();
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                        icon: Image.asset(AppImage.appIcon_apple),
-                        iconSize: Get.width * 0.02,
-                        onPressed: () {
-                          alertView();
-                        }),
-                  )
-                ],
-              ),
-            ),
             SizedBox(height: 10),
             Center(
               child: FlatButton(
@@ -322,7 +297,7 @@ class _LoginViewState extends State<LoginView> {
                 },
               ),
             ),
-            SizedBox(height: 20),
+           /* SizedBox(height: 20),
             Center(
               child: Material(
                 borderRadius: BorderRadius.circular(30.0),
@@ -340,7 +315,7 @@ class _LoginViewState extends State<LoginView> {
                   height: 50.0,
                   color: Colors.indigo,
                   child: Text(
-                    "Sign Up",
+                    "Already have an account? Login",
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.white,
@@ -348,7 +323,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),

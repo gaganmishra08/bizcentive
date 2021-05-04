@@ -1,5 +1,3 @@
-
-
 import 'package:fixurbiz_app/Model/sales_Model.dart';
 import 'package:fixurbiz_app/Views/Activity/activity_controller.dart';
 import 'package:fixurbiz_app/Views/Card/card_view.dart';
@@ -27,6 +25,7 @@ class _ActivityViewState extends State<ActivityView>
 
   String _searchText = "";
   var filteredList = List<ActivityModel>().obs;
+  var optionslist = List<Activity>().obs;
 
   @override
   void initState() {
@@ -35,12 +34,19 @@ class _ActivityViewState extends State<ActivityView>
     _tabController = TabController(length: 4, vsync: this);
 
     filteredList.addAll(controller.activityCard);
+    optionslist.addAll(controller.options);
   }
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return MaterialApp(
       home: DefaultTabController(
         initialIndex: 0,
@@ -54,44 +60,111 @@ class _ActivityViewState extends State<ActivityView>
               icon: new Icon(Icons.arrow_back_ios),
               onPressed: () => Get.offNamed(PageIdentifier.tabPage),
             ),
-            bottom: TabBar(
-              isScrollable: true,
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(
-                    Icons.import_contacts,
-                    size: 0,
-                  ),
-                  text: "Referred to me",
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.import_contacts,
-                    size: 0,
-                  ),
-                  text: "Referred by me",
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.import_contacts,
-                    size: 0,
-                  ),
-                  text: "Accepted",
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.import_contacts,
-                    size: 0,
-                  ),
-                  text: "Rejected",
-                ),
+            bottom: PreferredSize(
+                preferredSize: Size(200, 60),
+                child: TabBar(
 
-              ],
+                  isScrollable: true,
+                  tabs: <Widget>[
+
+                    Tab(
+                      icon: Icon(
+                        Icons.import_contacts,
+                        size: 0,
+                      ),
+                      text: "Bizcentives",
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.import_contacts,
+                        size: 0,
+                      ),
+                      text: "Investors",
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.import_contacts,
+                        size: 0,
+                      ),
+                      text: "Govt. Jobs",
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.import_contacts,
+                        size: 0,
+                      ),
+                      text: "Govt. Grants",
+                    ),
+
+
+                  ],
+                )
             ),
           ),
           body: TabBarView(
             children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                  itemCount: optionslist.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    Activity item = optionslist[index];
+                    return _optionCard(
+                        item.title,
+                        index
+                    );
+                  },
+                ),
 
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                  itemCount: optionslist.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    Activity item = optionslist[index];
+                    return _optionCard(
+                      item.title,
+index
+                    );
+                  },
+                ),
+
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                  itemCount: optionslist.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    Activity item = optionslist[index];
+                    return _optionCard(
+                      item.title,
+                        index
+                    );
+                  },
+                ),
+
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                  itemCount: optionslist.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    Activity item = optionslist[index];
+                    return _optionCard(
+                      item.title,
+                      index
+
+                    );
+                  },
+                ),
+
+              ),
+/*
               Container(
                 padding: EdgeInsets.all(10),
                 child: Column(
@@ -307,79 +380,7 @@ class _ActivityViewState extends State<ActivityView>
                     ),
                   ],
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Card(
-                                child: new ListTile(
-                                  leading: new Icon(Icons.search),
-                                  title: new TextField(
-                                    controller: _searchQuery,
-                                    decoration: new InputDecoration(
-                                        hintText: 'Search',
-                                        border: InputBorder.none),
-                                    onChanged: onSearchTextChanged,
-                                  ),
-                                  trailing: new IconButton(
-                                    icon: new Icon(Icons.cancel),
-                                    onPressed: () {
-                                      onSearchTextChanged('');
-                                    },
-                                  ),
-                                )),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: FlatButton(
-                            onPressed: () {},
-                            child: Icon(FontAwesomeIcons.slidersH),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: [
-                    //     Container(
-                    //         padding: EdgeInsets.only(left: 3),
-                    //         child: Text(
-                    //           'Choose from any of our Sales Services ',
-                    //           style: TextStyle(
-                    //             fontWeight: FontWeight.bold,
-                    //             color: Colors.black,
-                    //           ),
-                    //         ))
-                    //   ],
-                    // ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: filteredList.length,
-                        itemBuilder: (context, index) {
-                          ActivityModel item = filteredList[index];
-                          return _activityCard(
-                            item.cardTitle,
-                            item.description,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ),*/
             ],
           ),
         ),
@@ -387,26 +388,8 @@ class _ActivityViewState extends State<ActivityView>
     );
   }
 
-  onSearchTextChanged(String text) async {
-    if (text.isEmpty || text.length == 0) {
-      _searchQuery.clear();
-      filteredList.clear();
-      filteredList.addAll(controller.activityCard);
-    } else {
-      filteredList.clear();
-      controller.activityCard.forEach((element) {
-        print(text);
-        print(element.cardTitle);
-        if (element.cardTitle.toLowerCase().contains(text.toLowerCase())) {
-          filteredList.add(element);
-          print(filteredList.length.toString());
-        }
-      });
-    }
-    setState(() {});
-  }
 
-  _activityCard(String title, String description) {
+  _optionCard(String title, int index) {
     return Container(
       child: Card(
         elevation: 8.0,
@@ -415,40 +398,44 @@ class _ActivityViewState extends State<ActivityView>
           side: BorderSide(color: Colors.blue),
         ),
         child: Container(
-          padding: EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                description,
-                style: TextStyle(fontSize: 14),
-              ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: RaisedButton(
-                    onPressed: () {
+            child: Column(
+                children: [
+            MaterialButton(
+            //enabled: _emailController.text.isNotEmpty && _passController.text.isNotEmpty ,
+            disabledColor: Colors.indigo.withOpacity(0.3),
+            disabledTextColor: Colors.white54,
+            onPressed: () => {
+            if (index == 0){
+            Get.offNamed(PageIdentifier.savecard),
 
-                      Get.to(CardView(),arguments:true );
-                    },
-                    padding: EdgeInsets.all(0),
-                    color: Colors.indigo,
-                    textColor: Colors.white,
-                    child: Text('More'),
-                  ))
-            ],
+            } else
+            if (index == 1){
+            Get.offNamed(PageIdentifier.accepted),
+
+        }
+        else{
+      Get.offNamed(PageIdentifier.rejected),
+      }
+      },
+        minWidth: double.infinity,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8)),
+        height: 100,
+        color: Colors.indigo,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.white,
           ),
         ),
       ),
+      ],
+    ),)
+    ,
+    )
+    ,
     );
   }
+
 }

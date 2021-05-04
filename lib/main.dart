@@ -1,7 +1,13 @@
 import 'package:fixurbiz_app/Utility/google_signin.dart';
 import 'package:fixurbiz_app/Utility/localService.dart';
 import 'package:fixurbiz_app/Utility/shared_preferences.dart';
+import 'package:fixurbiz_app/Views/Activity/accept_card.dart';
+import 'package:fixurbiz_app/Views/Activity/reject_card.dart';
+import 'package:fixurbiz_app/Views/Activity/save_card.dart';
+import 'package:fixurbiz_app/Views/Assisment/assisment.dart';
 import 'package:fixurbiz_app/Views/Card/add_card.dart';
+import 'package:fixurbiz_app/Views/Discount/discount_type.dart';
+import 'package:fixurbiz_app/Views/Govt/grant.dart';
 import 'package:fixurbiz_app/Views/Introduction%20Screens/IntroductionView.dart';
 import 'package:fixurbiz_app/Views/Activity/activity.dart';
 import 'package:fixurbiz_app/Views/Advisor/adviser_view.dart';
@@ -21,11 +27,13 @@ import 'package:fixurbiz_app/Views/TabBar/tabBarView.dart';
 import 'package:fixurbiz_app/Views/Term/termView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'bindings/IntroBinding.dart';
 
-void main() {
+void main() async{
+  await GetStorage.init();
   runApp(MyApp());
 }
 
@@ -44,8 +52,9 @@ class _MyAppState extends State<MyApp> {
     getPrefsData();
   }
 
-  getPrefsData() async {
-    res = await SharedPreference().getUserid();
+  getPrefsData() async{
+    final box = GetStorage();
+    res = box.read("userID");
     print("gagan logout" + res);
   }
 
@@ -97,7 +106,13 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: PageIdentifier.term, page: () => TermsView()),
         GetPage(name: PageIdentifier.refer, page: () => ReferView()),
         GetPage(name: PageIdentifier.addCard, page: () => AddCard()),
-        GetPage(name: PageIdentifier.profile, page: () => ProfileView())
+        GetPage(name: PageIdentifier.profile, page: () => ProfileView()),
+        GetPage(name: PageIdentifier.discountType, page: () => DiscountTypeView()),
+        GetPage(name: PageIdentifier.govt, page: () => Grant()),
+        GetPage(name: PageIdentifier.accepted, page: () => AcceptedCard()),
+        GetPage(name: PageIdentifier.rejected, page: () => RejectedCard()),
+        GetPage(name: PageIdentifier.savecard, page: () => SavedCard()),
+        GetPage(name: PageIdentifier.assisment, page: () => Assisment())
       ],
     );
   }
@@ -127,4 +142,11 @@ class PageIdentifier {
   static const refer = '/refer';
   static const addCard = '/addCard';
   static const profile = '/profile';
+  static const discountType = '/discountType';
+  static const govt = '/govt';
+  static const accepted = '/accepted';
+  static const rejected = '/rejected';
+  static const savecard = '/savecard';
+  static const assisment = '/assisment';
+
 }

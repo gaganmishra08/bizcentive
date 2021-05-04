@@ -36,7 +36,7 @@ class _DiscountViewState extends State<DiscountView> {
                 child: Center(
                     child: Container(height: 50,width: MediaQuery.of(context).size.width/0.20,
                       child: FlatButton(onPressed: () {
-                        Get.toNamed(PageIdentifier.discountDetailView);
+                        Get.toNamed(PageIdentifier.discountType);
                       },
                         child: Text('Add a Discount Offering'),
                         textColor: Colors.white,

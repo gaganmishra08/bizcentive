@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
-  List<String> profileSetting = ["Change Password","Bizcentive Coins","Add Coins","Add Card","Logout"];
+  List<String> profileSetting = ["Buy More Coins","My Activity","Change Password","Logout"];
 
 
   Rx<User> user = Rx<User>();

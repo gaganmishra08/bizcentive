@@ -1,5 +1,7 @@
 import 'package:fixurbiz_app/Views/Card/bizcentiveCardView.dart';
 import 'package:fixurbiz_app/Views/Dasboard/homeController.dart';
+import 'package:fixurbiz_app/Views/Govt/grant.dart';
+import 'package:fixurbiz_app/Views/Sales/sales_view.dart';
 import 'package:fixurbiz_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
@@ -19,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
   int _attemptCount = 3;
   String balance = ' Bizcentive Coin Balance: 250';
   final controller = Get.put(HomeController());
-
+  final govt_controller = Get.put(GrantState());
 
 
   @override
@@ -109,8 +111,39 @@ class _HomeViewState extends State<HomeView> {
                                     "Progress", "We are working on it");
                               }
                             } else {
-                              if (index == 1) {
-                                Get.toNamed(PageIdentifier.salesView);
+                              if(index == 0){
+                                Get.toNamed(PageIdentifier.assisment);
+                              }
+                              else if (index == 1) {
+                                Get.to(SalesView(),arguments:["Sales"] );
+
+                              }else if (index ==2){
+                                Get.to(SalesView(),arguments:["Marketing"] );
+
+                              }
+                              else if (index ==3){
+                                Get.to(SalesView(),arguments:["Legal"] );
+                              }
+                              else if(index ==4){
+                                Get.to(SalesView(),arguments:["Tax & CPA"] );
+                              }
+                              else if (index == 5){
+                                Get.to(SalesView(),arguments:["Tech"] );
+                              }
+                              else if (index == 6){
+                                Get.to(SalesView(),arguments:["HR"] );
+                              }
+                              else if (index == 7){
+                                Get.to(Grant(),arguments:["Govt.Grants"] );
+                              }
+                              else if (index == 8){
+                                Get.to(Grant(),arguments:["Investors"] );
+
+                              }
+                              else if (index == 9){
+                                Get.to(Grant(),arguments:["Govt.Jobs"] );
+
+
                               }
                               else if (index==10){
                                 Get.toNamed(PageIdentifier.activityView);

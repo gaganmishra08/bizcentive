@@ -4,9 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/758019996/android.cloud_firestore.iml" filepath="$PROJECT_DIR$/.idea/modules/758019996/android.cloud_firestore.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2121678075/android.firebase_auth.iml" filepath="$PROJECT_DIR$/.idea/modules/-2121678075/android.firebase_auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/794117376/android.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/794117376/android.firebase_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-501527056/android.flutter_plugin_android_lifecycle.iml" filepath="$PROJECT_DIR$/.idea/modules/-501527056/android.flutter_plugin_android_lifecycle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/390536641/android.google_sign_in.iml" filepath="$PROJECT_DIR$/.idea/modules/390536641/android.google_sign_in.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/4081342/android.image_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/4081342/android.image_picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/839462532/android.path_provider.iml" filepath="$PROJECT_DIR$/.idea/modules/839462532/android.path_provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-43602500/io.flutter.plugins.firebase.cloudfirestore.android.cloud_firestore.iml" filepath="$PROJECT_DIR$/.idea/modules/-43602500/io.flutter.plugins.firebase.cloudfirestore.android.cloud_firestore.iml" />
     </modules>
   </component>
 </project>

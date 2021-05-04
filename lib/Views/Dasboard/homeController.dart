@@ -50,7 +50,7 @@ class HomeController extends GetxController {
     } else {
       showHideToggle.value = false;
       businessList.assignAll([
-        Menu(AppImage.menu_loading, "Bizcentive"),
+        Menu(AppImage.appIcon_asissment, "Assisment"),
         Menu(AppImage.menu_sale, "Sales"),
         Menu(AppImage.menu_marketing, "Marketing"),
         Menu(AppImage.menu_legal, "Legal"),
@@ -59,8 +59,8 @@ class HomeController extends GetxController {
         Menu(AppImage.menu_hr, "HR"),
         Menu(AppImage.menu_grants, "Govt.Grants"),
         Menu(AppImage.menu_investment, "Investors"),
-        Menu(AppImage.menu_give, "Give"),
-        Menu(AppImage.menu_hr, "Activity"),
+        Menu(AppImage.menu_give, "Govt.Jobs"),
+        Menu(AppImage.menu_hr, "My Activity"),
       ]);
     }
   }

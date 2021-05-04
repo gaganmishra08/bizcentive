@@ -19,7 +19,6 @@ class SignIn{
         idToken: gAuth.idToken, accessToken: gAuth.accessToken);
     final AuthResult authResult = await auth.signInWithCredential(gCredential);
     final FirebaseUser user = authResult.user;
-
     assert(!user.isAnonymous);
     assert(user.getIdToken() != null);
     final FirebaseUser currentUser = await auth.currentUser();
@@ -37,7 +36,6 @@ class SignIn{
       final AuthResult authResult = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       final FirebaseUser user = authResult.user;
-
       assert(!user.isAnonymous);
       assert(!user.isEmailVerified);
       final FirebaseUser currentUser = await auth.currentUser();

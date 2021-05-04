@@ -14,15 +14,19 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
-  String dropdownValue = 'Individual';
+ // String dropdownValue = 'Individual';
   final controller = DragSelectGridViewController();
  List<String> selectedCategory = [];
   List category = ["Entertainment","Shopping","Education","Charity","Sports","Adventure","Travel","Networking"];
-
+  List signupType = Get.arguments;
+  var _visible = false;
   @override
   void initState() {
     super.initState();
     controller.addListener(scheduleRebuild);
+    if(signupType.first.toString() == "SignupType.Business") {
+      _visible = true;
+    }
   }
 
   @override
@@ -63,27 +67,74 @@ class _SelectCategoryState extends State<SelectCategory> {
                         color: Colors.indigo),
                   ),
                 ),
-                SizedBox(height: Get.height * 0.04),
-                Text(
-                  "Choose an option that describes you best",
+                SizedBox(height: Get.height * 0.02),
+
+          Visibility(
+                child:Text(
+                  "Bizcentive Offers",
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.indigo,
                       fontWeight: FontWeight.w500),
                   textAlign: TextAlign.left,
-                ),
-                Text(
-                  "(We will show you relevant Bizcentives)",
+                ), visible:_visible ,),
+                Visibility(child:Text(
+                  "1. Expert Consultants",
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.indigo,
                       fontWeight: FontWeight.w500),
                   textAlign: TextAlign.left,
-                ),
+                ),visible:_visible),
+            Visibility(child:Text(
+  "2. Business Services",
+  style: TextStyle(
+      fontSize: 16,
+      color: Colors.indigo,
+      fontWeight: FontWeight.w500),
+  textAlign: TextAlign.left,
+),visible: _visible) ,
+
+
+            Visibility(child: Text(
+                "3. Investors and Mentors",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.indigo,
+                    fontWeight: FontWeight.w500),
+                textAlign: TextAlign.left,
+              ),visible:_visible),
+            Visibility(child:  Text(
+                "4. Govt grants and opportunities",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.indigo,
+                    fontWeight: FontWeight.w500),
+                textAlign: TextAlign.left,
+              ),visible:_visible),
+                SizedBox(height: 10,),
+
+           Text("And Amazing everyday Deals, called Bizcentives",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(height: 10,),
+           Text(
+                      "So, for us to customize deals to match your preferences, please select categories in which you’d like to receive offers and deals",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+
                 SizedBox(height: 10),
 
                 /// DropDown Container
-                Container(
+               /* Container(
                   width: double.infinity,
                   //color: Colors.indigo[800],
                   //margin: const EdgeInsets.all(3.0),
@@ -119,10 +170,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                       },
                       items: <String>[
                         'Individual',
-                        'Entrepreneur',
-                        'Business',
-                        'sales',
-                        'other'
+                        'Business'
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -154,7 +202,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                     textAlign: TextAlign.left,
                   ),
                 ),
-
+*/
                 Expanded(
                   child: DragSelectGridView(
 
@@ -181,6 +229,14 @@ class _SelectCategoryState extends State<SelectCategory> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
+                Center(child: Text("Thanks! You’re all set",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.indigo,
+                    fontWeight: FontWeight.bold,
+                  ),)),
+                SizedBox(height: 10),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -203,9 +259,19 @@ class _SelectCategoryState extends State<SelectCategory> {
                         //side: BorderSide(color: Colors.red),
                       ),
                       onPressed: () {
-                        print(selectedCategory);
-                        FirestoreService().saveUserData(dropdownValue, selectedCategory);
-                        Get.offNamed(PageIdentifier.adviser);
+
+                        if(signupType.first.toString() == "SignupType.Business") {
+                          FirestoreService().saveUserData("Business", selectedCategory);
+                          Get.offNamed(PageIdentifier.adviser);
+                        }
+                        else if (signupType.first.toString() == "SignupType.Individual" ){
+                          FirestoreService().saveUserData("Individual", selectedCategory);
+                          Get.toNamed(PageIdentifier.tabPage);
+                        }
+                        else{
+                          Get.toNamed(PageIdentifier.tabPage);
+                        }
+
                       },
                     ),
                   ),

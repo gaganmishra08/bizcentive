@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fixurbiz_app/Utility/google_signin.dart';
+import 'package:fixurbiz_app/Utility/shared_preferences.dart';
 import 'package:fixurbiz_app/Views/Profile/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,11 +58,11 @@ class _ProfileViewState extends State<ProfileView> {
                           Text((controller.user.value.name != null &&
                                   controller.user.value.name != "")
                               ? controller.user.value.name
-                              : "NA"),
+                              : "NA",style:TextStyle(color: Colors.indigo),),
                           Text((controller.user.value.email != null &&
                                   controller.user.value.email != "")
                               ? controller.user.value.email
-                              : "NA"),
+                              : "NA",style:TextStyle(color: Colors.indigo),),
                         ],
                       )),
                 ],
@@ -72,6 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
                   itemCount: controller.profileSetting.length,
                   itemBuilder: (context, position) {
                     return Card(
+                      color: Colors.indigo,
                       elevation: 8,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -80,26 +82,24 @@ class _ProfileViewState extends State<ProfileView> {
                       child: TextButton(
                         onPressed: () async {
                           if (position == 0) {
-
+                          // Need screen for this
                           }else if(position==1){
-
+                            Get.toNamed(PageIdentifier.activityView);
                           }else if(position==2){
 
                           }
                           else if(position==3){
-                            Get.offNamed(PageIdentifier.addCard);
-
-                          }
-                          else if(position==4){
+                            SharedPreference().remove(SharedPreference().userID);
                             SignIn().signOut();
                             Get.offNamed(PageIdentifier.login);
                           }
 
 
+
                         },
                         child: Text(
                           controller.profileSetting[position],
-                          style: TextStyle(fontSize: 20, color: Colors.black45),
+                          style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                       ),
                     );

@@ -32,25 +32,37 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/aidl_source_output_dir/debug/compileDebugAidl/out" />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/aidl_source_output_dir/debugAndroidTest/compileDebugAndroidTestAidl/out" />
-    <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/ap_generated_sources/debug/out" />
+    <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/ap_generated_sources/debug/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/ap_generated_sources/debugAndroidTest/out" />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/renderscript_source_output_dir/debug/compileDebugRenderscript/out" />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/renderscript_source_output_dir/debugAndroidTest/compileDebugAndroidTestRenderscript/out" />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/res/resValues/androidTest/debug" />
-    <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/res/resValues/debug" />
+    <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/res/resValues/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/res/resValues/debug" type="java-resource" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/res/rs/androidTest/debug" />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/res/rs/debug" />
     <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/source/buildConfig/androidTest/debug" />
-    <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/source/buildConfig/debug" />
+    <content url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/source/buildConfig/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build/firebase_auth/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
+    </content>
     <content url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9">
       <sourceFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/android/src/main/java" isTestSource="false" />
+      <excludeFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/.pub" />
       <excludeFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/android/.gradle" />
+      <excludeFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/build" />
+      <excludeFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/example/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/example/.pub" />
+      <excludeFolder url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/example/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.5" level="project" />
-    <orderEntry type="library" name="Gradle: io.flutter:flutter_embedding_debug:1.0.0-2c956a31c0a3d350827aee6c56bb63337c5b4e6e" level="project" />
+    <orderEntry type="library" name="Gradle: io.flutter:flutter_embedding_debug:1.0.0-5d8bf811b3072390933d69f3e289a4bb673636c4" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common-java8:2.2.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.2.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.1.0" level="project" />

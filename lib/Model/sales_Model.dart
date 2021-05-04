@@ -11,10 +11,10 @@ class SalesModel{
 class ActivityModel{
   final String cardTitle;
   final String description;
-
-
   ActivityModel(this.cardTitle, this.description);
+}
+class Activity{
+  final String title;
 
-
-
+  Activity(this.title);
 }
