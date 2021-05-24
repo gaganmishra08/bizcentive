@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
 
     print(controller.showHideToggle);
-    //counter();
+    counter();
   }
 counter() async{
   final prefs = await SharedPreferences.getInstance();
@@ -222,19 +222,19 @@ setCount()async{
   final prefs =  await SharedPreferences.getInstance();
 
 
-  // if(count.value <= 3){
-  //
-  //   _attemptCount.value =   _attemptCount.value-count.value;
-  //   count.value++;
-  //   prefs.setInt('counter', count.value);
+  if(count.value <= 3){
+  
+    _attemptCount.value =   _attemptCount.value-count.value;
+    count.value++;
+     prefs.setInt('counter', count.value);
     Get.toNamed(PageIdentifier.cardView);
-  //}
+  }
 
 
-  // else{
-  //   Get.snackbar("Alert", "You have exceed the limit");
-  //   alert(context);
-  // }
+   else{
+     Get.snackbar("Alert", "You have exceed the limit");
+     alert(context);
+  }
 }
   _topButton(IconData icon,
       {Color iconColor = Colors.grey, double size = 25, Function onTap}) {
