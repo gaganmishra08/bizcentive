@@ -10,6 +10,7 @@ import 'package:fixurbiz_app/Views/Dasboard/homeView.dart';
 import 'package:fixurbiz_app/controller/IntroController.dart';
 import 'package:fixurbiz_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -213,6 +214,8 @@ class _LoginViewState extends State<LoginView> {
                           hintText: "Enter user email.",
                           labelText: "Email",
                           prefixIcon: Icon(Icons.person),
+
+
                           onSubmitted: (value) {
                             if (!value.isNotEmpty) {
                               Get.snackbar("Alert", "Please fill the Email");
@@ -247,6 +250,10 @@ class _LoginViewState extends State<LoginView> {
                           disabledColor: Colors.indigo.withOpacity(0.3),
                           disabledTextColor: Colors.white54,
                           onPressed: () => {
+                            if ( _emailController.text == "" && _passController.text == ""){
+                              Get.snackbar("Error", "Please fill correct email or Password")
+    }
+                            else{
                              SignIn().signInWithEmail(
                                 _emailController.text, _passController.text).then((value) {
 
@@ -258,7 +265,7 @@ class _LoginViewState extends State<LoginView> {
                                   }
 
                             })
-
+}
                           },
                           minWidth: double.infinity,
                           shape: RoundedRectangleBorder(
@@ -346,7 +353,10 @@ class _LoginViewState extends State<LoginView> {
       maxLines: maxLines,
       keyboardType: keyboardType,
       obscureText: isSecure,
+        inputFormatters: [BlacklistingTextInputFormatter(
+        new RegExp(r"\s\b|\b\s"),),],
       decoration: InputDecoration(
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(5)),
           borderSide: BorderSide(color: Colors.blue),

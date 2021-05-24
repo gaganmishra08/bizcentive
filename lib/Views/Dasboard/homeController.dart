@@ -15,16 +15,17 @@ class HomeController extends GetxController {
   var showCardItem = false.obs;
   var businessList = List<Menu>().obs;
   var communityList = List<Menu>().obs;
-  var cardItems = List<CardViewModel>().obs;
-  RxBool showHideToggle = true.obs;
 
+  RxBool showHideToggle = true.obs;
+  List<CardViewModel> category;
   // get menuItemsCount => isToggled.value ? communityList.length : businessList.length;
   // get menuItem(int index)=>
   @override
   void onInit() {
     super.onInit();
+
     loadUserData();
-    _loadCardItems();
+
   }
 
   void loadUserData() async {
@@ -67,45 +68,14 @@ class HomeController extends GetxController {
 
   void loadCommunityItems(User fUser) {
     communityList.assignAll([
+      //Get.snackbar("Alert", "We are working on it"),
       Menu(AppImage.menu_discount, "Discount"),
       Menu(AppImage.menu_networking, "Networking"),
       Menu(AppImage.menu_experts, "Experts"),
     ]);
   }
 
-  void _loadCardItems() {
-    cardItems.assignAll([
-      CardViewModel('Get a Sales Expert to build an outbound Sales Process',
-          "Get a Sales Expert and Consultant to understand your company's business model and build a brilliant Sales Process.More detail in Term.",
-          id: 'BC4567554',
-          fullFiledBy: 'Bizcentive Inc.',
-          category: "Sales",
-          cost: "12600 Coins",
-          location: "Sunnyvale, CA, USA",
-          cardColor: Colors.indigo[900]),
-      CardViewModel(
-          "Get 40% off on Premium Laptops, Accessories, Switches and Routers",
-          "Whe have a stock of 249 laptops that are unsold from last year, we've willing to sell it for ${220} each. See Details in Terms.",
-          id: "CC4567554",
-          fullFiledBy: "Bizcentive Community",
-          cost: "Discuss with Community Member",
-          cardColor: Colors.green[900]),
-      CardViewModel("Get New Carpets and Drapes for as low as ${400}",
-          "This is a closing Sale, We are closing out on old inventory. Everything must go, Please feel free to reach out to any of your home interior needs",
-          id: "SC4567554",
-          fullFiledBy: "Sponsored",
-          cost: "Discuss to Sponsor",
-          cardColor: Colors.orange[800]),
-    ]);
-  }
 
-  void updateCardIndex() {
-    if (cardIndex < cardItems.length) {
-      cardIndex += 1;
-    }
-  }
 
-  CardViewModel cardItem() {
-    return cardItems[cardIndex.value];
-  }
+
 }

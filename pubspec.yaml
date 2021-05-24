@@ -41,7 +41,8 @@ dependencies:
   google_sign_in: ^4.5.9
   image_picker:
   date_time_picker: "^2.0.0"
-
+  intl:
+  shared_preferences:
 
 
 dev_dependencies:

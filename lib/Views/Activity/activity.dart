@@ -1,5 +1,8 @@
 import 'package:fixurbiz_app/Model/sales_Model.dart';
+import 'package:fixurbiz_app/Views/Activity/accept_card.dart';
 import 'package:fixurbiz_app/Views/Activity/activity_controller.dart';
+import 'package:fixurbiz_app/Views/Activity/reject_card.dart';
+import 'package:fixurbiz_app/Views/Activity/save_card.dart';
 import 'package:fixurbiz_app/Views/Card/card_view.dart';
 
 import 'package:flutter/material.dart';
@@ -50,7 +53,7 @@ class _ActivityViewState extends State<ActivityView>
     return MaterialApp(
       home: DefaultTabController(
         initialIndex: 0,
-        length: 4,
+        length: 5,
         child: Scaffold(
           appBar: AppBar(
             title: Text('My Activity'),
@@ -95,7 +98,13 @@ class _ActivityViewState extends State<ActivityView>
                       ),
                       text: "Govt. Grants",
                     ),
-
+                    Tab(
+                      icon: Icon(
+                        Icons.import_contacts,
+                        size: 0,
+                      ),
+                      text: "Offers",
+                    ),
 
                   ],
                 )
@@ -163,6 +172,28 @@ index
                   },
                 ),
 
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Text('To Access the Bizcentive Community Discount Feature, Your business must First add a Product or Service to the Discount',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.indigo),),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Center(
+                          child: Container(height: 50,width: MediaQuery.of(context).size.width/0.20,
+                            child: FlatButton(onPressed: () {
+                              Get.toNamed(PageIdentifier.discountType);
+                            },
+                              child: Text('Add a Discount Offering'),
+                              textColor: Colors.white,
+                              color: Colors.indigo,),),),
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
 /*
               Container(
@@ -406,15 +437,16 @@ index
             disabledTextColor: Colors.white54,
             onPressed: () => {
             if (index == 0){
-            Get.offNamed(PageIdentifier.savecard),
 
+            Get.to(SavedCard(),arguments:["saveCards"]),
             } else
             if (index == 1){
-            Get.offNamed(PageIdentifier.accepted),
+            Get.to(AcceptedCard(),arguments:["acceptedCards"]),
+
 
         }
         else{
-      Get.offNamed(PageIdentifier.rejected),
+            Get.to(RejectedCard(),arguments:["rejectedCards"]),
       }
       },
         minWidth: double.infinity,

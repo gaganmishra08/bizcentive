@@ -1,49 +1,48 @@
 {
   "project_info": {
-    "project_number": "942734029726",
-    "firebase_url": "https://fixurbiz-37813-default-rtdb.firebaseio.com",
-    "project_id": "fixurbiz-37813",
-    "storage_bucket": "fixurbiz-37813.appspot.com"
+    "project_number": "605228867310",
+    "project_id": "bizcentive-e312f",
+    "storage_bucket": "bizcentive-e312f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:942734029726:android:97690fa7c558bdcb6b5c8f",
+        "mobilesdk_app_id": "1:605228867310:android:0a7727ae26cc94ff0a5dff",
         "android_client_info": {
-          "package_name": "com.example.fixurbiz_app"
+          "package_name": "com.example.bizcentiveApp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "942734029726-p3u955okoqbeiit3gat5g2h701i8hk8u.apps.googleusercontent.com",
+          "client_id": "605228867310-ba0ljoh7712afig7au3hkmd6usg517rr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.fixurbiz_app",
+            "package_name": "com.example.bizcentiveApp",
             "certificate_hash": "8f0218b6396834344dfcfd9ffdff404304fce4db"
           }
         },
         {
-          "client_id": "942734029726-05ju94sg85fpl5h59j7ao1cmnplj73ko.apps.googleusercontent.com",
+          "client_id": "605228867310-ladlfckja82haealdgiq9esuall5afgc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDll0Iwd8LMIN3Nz1uTJ05P2YHHsbsahxM"
+          "current_key": "AIzaSyAQKXKs34V6nNVc-udte0SK08H92hA6Yak"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "942734029726-05ju94sg85fpl5h59j7ao1cmnplj73ko.apps.googleusercontent.com",
+              "client_id": "605228867310-ladlfckja82haealdgiq9esuall5afgc.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "942734029726-um59f3dk7fscg1se2mibq8vd0rfvuohc.apps.googleusercontent.com",
+              "client_id": "605228867310-rks5cjn6g13rhcfukkq62kmvos1dl679.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.fixurbizApp"
+                "bundle_id": "com.example.bizcentiveApp"
               }
             }
           ]

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fixurbiz_app/Utility/firestore_service.dart';
 import 'package:fixurbiz_app/Views/Discount/discount_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,19 +12,20 @@ class Grant extends StatefulWidget {
 enum GovtType { Less, One,Three,Greater }
 class GrantState extends State<Grant> {
   GovtType _character = GovtType.Less;
-  List  textStr = Get.arguments;
+
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:Scaffold(
+    print(Get.arguments.first);
+    return
+      Scaffold(
         appBar: AppBar(
-          title:Text(textStr.first),
+          title:Text(Get.arguments.first),
           centerTitle: true,
           backgroundColor: Colors.indigo,
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back_ios),
-            onPressed: () => Get.offNamed(PageIdentifier.tabPage),
+            onPressed: () => Get.toNamed(PageIdentifier.tabPage),
           ),
           //You can make this transparent
           elevation: 0.0, //No shadow
@@ -94,6 +97,10 @@ class GrantState extends State<Grant> {
                           color: Colors.white,),),
                       onPressed: (){
 
+
+                        Get.arguments.first == null? Center(child: CircularProgressIndicator()):getSaveData(Get.arguments.first);
+
+
                       },
                     ),
                   ),
@@ -102,7 +109,57 @@ class GrantState extends State<Grant> {
             ),
           ),
         ),
-      ) ,
-    );
+      ) ;
+
+  }
+  Future<String> getSaveData(String colloectionName) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+    final firebase = await Firestore.instance.collection(colloectionName);
+
+    try {
+      await firebase.getDocuments().then((QuerySnapshot querySnapshot) {
+      if  (querySnapshot.documents.isEmpty) {
+        if (_character.toString() ==
+            "GovtType.Less") {
+          FirestoreService().saveRequests(
+              "Less than one year old", Get.arguments.first);
+          Navigator.pop(context);
+          Get.snackbar("Alert", "Successfully Sent");
+        } else if (_character.toString() ==
+            "GovtType.One") {
+          FirestoreService().saveRequests(
+              "1-3 years old", Get.arguments.first);
+          Navigator.pop(context);
+          Get.snackbar("Alert", "Successfully Sent");
+        } else if (_character.toString() ==
+            "GovtType.Three") {
+          FirestoreService().saveRequests(
+              "3-5 years old", Get.arguments.first);
+          Navigator.pop(context);
+          Get.snackbar("Alert", "Successfully Sent");
+        } else {
+          FirestoreService().saveRequests(
+              "Greater than 5 years old", Get.arguments.first);
+          Navigator.pop(context);
+          Get.snackbar("Alert", "Successfully Sent");
+        }
+      }else{
+
+        Navigator.pop(context);
+        Get.snackbar("Alert", "You already shared this request");
+      }
+
+      });
+    } catch (e) {
+      Navigator.pop(context);
+      Get.snackbar("Error", e.toString());
+    }
+
   }
 }

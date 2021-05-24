@@ -50,6 +50,7 @@ class SignIn{
 
 
   }
+
   Future<FirebaseUser> signUpWithEmail(String email, String password) async{
     try {
       final AuthResult authResult = await auth.createUserWithEmailAndPassword(

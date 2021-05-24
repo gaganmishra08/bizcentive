@@ -1,4 +1,6 @@
+import 'package:fixurbiz_app/Utility/shared_preferences.dart';
 import 'package:fixurbiz_app/Views/Card/bizcentiveCardView.dart';
+import 'package:fixurbiz_app/Views/Card/card_view.dart';
 import 'package:fixurbiz_app/Views/Dasboard/homeController.dart';
 import 'package:fixurbiz_app/Views/Govt/grant.dart';
 import 'package:fixurbiz_app/Views/Sales/sales_view.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Utility/appImage.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,19 +21,25 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   double height = Get.height;
   double width = Get.width;
-  int _attemptCount = 3;
+  RxInt _attemptCount = 3.obs;
   String balance = ' Bizcentive Coin Balance: 250';
   final controller = Get.put(HomeController());
   final govt_controller = Get.put(GrantState());
-
+  RxInt count = 1.obs;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(controller.showHideToggle);
-  }
 
+    print(controller.showHideToggle);
+    //counter();
+  }
+counter() async{
+  final prefs = await SharedPreferences.getInstance();
+   count.value = prefs.getInt('counter') ?? 0;
+
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,12 +65,15 @@ class _HomeViewState extends State<HomeView> {
                           : Row(
                               children: [
                                 Obx(
-                                  () => Text(
+                                  () =>
+
+                                      Text(
                                     controller.isToggled.value == true
                                         ? "Community"
                                         : "Business",
                                     style: TextStyle(fontSize: 18),
                                   ),
+
                                 ),
                                 SizedBox(width: 10),
                                 FlutterSwitch(
@@ -104,11 +116,11 @@ class _HomeViewState extends State<HomeView> {
                           iconSize: Size(60, 60),
                           onTap: () {
                             if (controller.isToggled.value == true) {
+
                               if (index == 0) {
                                 Get.toNamed(PageIdentifier.discountView);
                               } else {
-                                Get.snackbar(
-                                    "Progress", "We are working on it");
+                                Get.snackbar("Progress", "We are working on it");
                               }
                             } else {
                               if(index == 0){
@@ -164,22 +176,7 @@ class _HomeViewState extends State<HomeView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Container(
-                  //   child: Text(
-                  //     "$_attemptCount",
-                  //     style:
-                  //         TextStyle(fontSize: 33, fontWeight: FontWeight.w500),
-                  //   ),
-                  //   //padding: const EdgeInsets.all(20),
-                  //   alignment: Alignment.center,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(30),
-                  //     border: Border.all(color: Colors.grey[500]),
-                  //   ),
-                  //   height: 60.0,
-                  //   width: 60.0,
-                  // ),
+
 
                   Text(
                     " $_attemptCount Attempts left!",
@@ -202,10 +199,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _centerView() {
-    return Obx(
-      () => controller.showCardItem.value == true
-          ? CardItemView(model: controller.cardItem())
-          : Column(
+    return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
@@ -215,20 +209,33 @@ class _HomeViewState extends State<HomeView> {
                     icon: Image.asset('assets/images/reload.png'),
                     iconSize: 100,
                     onPressed: () {
-                      // if (controller.showCardItem.value == false) {
-                      //   controller.showCardItem.toggle();
-                      // }
-                      // controller.updateCardIndex();
-                      Get.offNamed(PageIdentifier.cardView);
+                      setCount();
                     },
                   ),
                 ),
                 Text("Click for a new bizcentive!"),
               ],
-            ),
-    );
-  }
+            );
 
+  }
+setCount()async{
+  final prefs =  await SharedPreferences.getInstance();
+
+
+  // if(count.value <= 3){
+  //
+  //   _attemptCount.value =   _attemptCount.value-count.value;
+  //   count.value++;
+  //   prefs.setInt('counter', count.value);
+    Get.toNamed(PageIdentifier.cardView);
+  //}
+
+
+  // else{
+  //   Get.snackbar("Alert", "You have exceed the limit");
+  //   alert(context);
+  // }
+}
   _topButton(IconData icon,
       {Color iconColor = Colors.grey, double size = 25, Function onTap}) {
     return IconButton(
@@ -274,5 +281,33 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+  alert(BuildContext con) {
+    AlertDialog alt = AlertDialog(
+      title: Text('Bizcentive Cost'),
+      content: Text('This Bizcentive Costs 25 Coins'),
+      actions: [
+        FlatButton(
+          onPressed: () {
+            Navigator.of(con).pop();
+          },
+          child: Text('Cancel'),
+          color: Colors.redAccent,
+        ),
+        FlatButton(
+          onPressed: () {
+
+          },
+          child: Text('Ok'),
+          color: Colors.green,
+        ),
+      ],
+    );
+    showDialog(
+        context: con,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return alt;
+        });
   }
 }

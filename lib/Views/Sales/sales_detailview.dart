@@ -1,3 +1,4 @@
+import 'package:fixurbiz_app/Model/cardModel.dart';
 import 'package:fixurbiz_app/Model/sales_Model.dart';
 import 'package:fixurbiz_app/Views/Sales/sales_controller.dart';
 import 'package:fixurbiz_app/Views/Sales/sales_view.dart';
@@ -24,15 +25,16 @@ class _SalesDetailViewState extends State<SalesDetailView>
   final TextEditingController _searchQuery = new TextEditingController();
   bool _IsSearching;
   String _searchText = "";
-  var filteredList = List<SalesModel>().obs;
-  List  textStr = Get.arguments;
+  List<CardElement> filteredList;
+  List textStr = Get.arguments;
+
   @override
   void initState() {
     super.initState();
 
     _tabController = TabController(length: 5, vsync: this);
     _IsSearching = false;
-    filteredList.addAll(controller.salesCard);
+
   }
 
   @override
@@ -50,7 +52,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
             backgroundColor: Colors.indigo,
             leading: new IconButton(
               icon: new Icon(Icons.arrow_back_ios),
-              onPressed: () => Get.to(SalesView(),arguments:[textStr.first]),
+              onPressed: () => Get.to(SalesView(), arguments: [textStr.first]),
             ),
             bottom: TabBar(
               isScrollable: true,
@@ -245,7 +247,8 @@ class _SalesDetailViewState extends State<SalesDetailView>
                             children: [
                               SizedBox(
                                 height: 10,
-                              ),/*
+                              ),
+                              /*
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -396,217 +399,10 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                     Icons.arrow_right,
                                     color: Colors.grey,
                                   ),
-                          Expanded(child:Text(
-                                    'And/or close deals with your clients.',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),),
-                                ],
-                              ),
-                              Column(
-                                // crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.grey,
-                                      ),
-                                      Text(" Please click on"),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.grey,
-                                      ),
-                                      Text(" this card for more details."),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      '"\$399"',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    color: Colors.indigo,
-                                  )),
-                              SizedBox(
-                                height: 5,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Center(
-
-                      child: Container(
-                       
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Text('Looking for Enterprise solutions?'),
-                            MaterialButton(
-                              height: 50,
-                              onPressed: () {},
-                              child: Text(
-                                "Contact a Consultant",
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              color: Colors.indigo,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 10,
-                              ),/*
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "\$399",
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Billed Monthly",
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-
-                                  width: MediaQuery.of(context).size.width,
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'Subscribe',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    color: Colors.indigo,
-                                  )),
-                              SizedBox(
-                                height: 10,
-                              ),*/
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.arrow_right,
-                                    color: Colors.grey,
-                                  ),
-                                  Text(
-                                    'Highlights of this plan',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                // crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.grey,
-                                      ),
-                                      Text(
-                                          "Our team of experts will generate."),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.grey,
-                                      ),
-                                      Text("curated, qualified."),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.grey,
-                                      ),
-                                      Text("leads for your business.."),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.arrow_right,
-                                    color: Colors.grey,
-                                  ),
                                   Expanded(
                                     child: Text(
-                                      'Depending on the nature of your business,',
+                                      'And/or close deals with your clients.',
+                                      softWrap: true,
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
@@ -624,50 +420,6 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                         Icons.arrow_right,
                                         color: Colors.grey,
                                       ),
-                                      Text("we will generate lead"),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.grey,
-                                      ),
-                                      Text("s to help you engage."),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.arrow_right,
-                                    color: Colors.grey,
-                                  ),
-                                  Expanded(child:Text(
-                                    'And/or close deals with your clients.',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),),
-                                ],
-                              ),
-                              Column(
-                                // crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.grey,
-                                      ),
                                       Text(" Please click on"),
                                     ],
                                   ),
@@ -688,16 +440,35 @@ class _SalesDetailViewState extends State<SalesDetailView>
                               ),
                               Container(
                                   height: 50,
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      '"\$399"',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    color: Colors.indigo,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      RaisedButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          "\$399",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        color: Colors.indigo,
+                                      ),
+                                      RaisedButton(
+                                        onPressed: () {
+                                          Get.toNamed(
+                                              PageIdentifier.discountView);
+                                        },
+                                        child: Text(
+                                          "Discount",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        color: Colors.indigo,
+                                      ),
+                                    ],
                                   )),
                               SizedBox(
                                 height: 5,
@@ -708,9 +479,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                       ),
                     ),
                     Center(
-
                       child: Container(
-
                         padding: EdgeInsets.all(10),
                         child: Column(
                           children: [
@@ -903,13 +672,15 @@ class _SalesDetailViewState extends State<SalesDetailView>
                                     Icons.arrow_right,
                                     color: Colors.grey,
                                   ),
-                                  Expanded(child:Text(
-                                    'And/or close deals with your clients.',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),),
+                                  Expanded(
+                                    child: Text(
+                                      'And/or close deals with your clients.',
+                                      softWrap: true,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                 ],
                               ),
                               Column(
@@ -942,16 +713,35 @@ class _SalesDetailViewState extends State<SalesDetailView>
                               ),
                               Container(
                                   height: 50,
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      '"\$399"',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    color: Colors.indigo,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      RaisedButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          "\$399",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        color: Colors.indigo,
+                                      ),
+                                      RaisedButton(
+                                        onPressed: () {
+                                          Get.toNamed(
+                                              PageIdentifier.discountView);
+                                        },
+                                        child: Text(
+                                          "Discount",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        color: Colors.indigo,
+                                      ),
+                                    ],
                                   )),
                               SizedBox(
                                 height: 5,
@@ -962,9 +752,7 @@ class _SalesDetailViewState extends State<SalesDetailView>
                       ),
                     ),
                     Center(
-
                       child: Container(
-
                         padding: EdgeInsets.all(10),
                         child: Column(
                           children: [
@@ -994,73 +782,352 @@ class _SalesDetailViewState extends State<SalesDetailView>
               Container(
                 padding: EdgeInsets.all(10),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Card(
-                                child: new ListTile(
-                              leading: new Icon(Icons.search),
-                              title: new TextField(
-                                controller: _searchQuery,
-                                decoration: new InputDecoration(
-                                    hintText: 'Search',
-                                    border: InputBorder.none),
-                                onChanged: onSearchTextChanged,
-                              ),
-                              trailing: new IconButton(
-                                icon: new Icon(Icons.cancel),
-                                onPressed: () {
-                                  onSearchTextChanged('');
-                                },
-                              ),
-                            )),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: FlatButton(
-                            onPressed: () {},
-                            child: Icon(FontAwesomeIcons.slidersH),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                            padding: EdgeInsets.only(left: 3),
-                            child: Text(
-                              'Choose from any of our Sales Services ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
                     Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: filteredList.length,
-                        itemBuilder: (context, index) {
-                          SalesModel item = filteredList[index];
-                          return _salesCard(
-                            item.cardTitle,
-                            item.description,
-                          );
-                        },
+                      child: SingleChildScrollView(
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              /*
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "\$399",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Billed Monthly",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+
+                                  width: MediaQuery.of(context).size.width,
+                                  child: RaisedButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Subscribe',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    color: Colors.indigo,
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),*/
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_right,
+                                    color: Colors.grey,
+                                  ),
+                                  Text(
+                                    'Highlights of this plan',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.grey,
+                                      ),
+                                      Text(
+                                          "Our team of experts will generate."),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.grey,
+                                      ),
+                                      Text("curated, qualified."),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.grey,
+                                      ),
+                                      Text("leads for your business.."),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_right,
+                                    color: Colors.grey,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'Depending on the nature of your business,',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.grey,
+                                      ),
+                                      Text("we will generate lead"),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.grey,
+                                      ),
+                                      Text("s to help you engage."),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_right,
+                                    color: Colors.grey,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'And/or close deals with your clients.',
+                                      softWrap: true,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.grey,
+                                      ),
+                                      Text(" Please click on"),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.grey,
+                                      ),
+                                      Text(" this card for more details."),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  height: 50,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      RaisedButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          "\$399",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        color: Colors.indigo,
+                                      ),
+                                      RaisedButton(
+                                        onPressed: () {
+                                          Get.toNamed(
+                                              PageIdentifier.discountView);
+                                        },
+                                        child: Text(
+                                          "Discount",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        color: Colors.indigo,
+                                      ),
+                                    ],
+                                  )),
+                              SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Text('Looking for Enterprise solutions?'),
+                            MaterialButton(
+                              height: 50,
+                              onPressed: () {},
+                              child: Text(
+                                "Contact a Consultant",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              color: Colors.indigo,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Obx(
+                  () => controller.salesCard.isEmpty
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: new Card(
+                                        child: new ListTile(
+                                      leading: new Icon(Icons.search),
+                                      title: new TextField(
+                                        controller: _searchQuery,
+                                        decoration: new InputDecoration(
+                                            hintText: 'Search',
+                                            border: InputBorder.none),
+                                        onChanged: onSearchTextChanged,
+                                      ),
+                                      trailing: new IconButton(
+                                        icon: new Icon(Icons.cancel),
+                                        onPressed: () {
+                                          onSearchTextChanged('');
+                                        },
+                                      ),
+                                    )),
+                                  ),
+                                ),
+                                // Expanded(
+                                //   flex: 1,
+                                //   child: FlatButton(
+                                //     onPressed: () {},
+                                //     child: Icon(FontAwesomeIcons.slidersH),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    padding: EdgeInsets.only(left: 3),
+                                    child: Text(
+                                      'Choose from any of our Sales Services ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ))
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: controller.filteredList.isEmpty ? controller.salesCard.length : controller.filteredList.length,
+                                itemBuilder: (context, index) {
+                                  CardElement item = controller.filteredList.isEmpty?controller.salesCard[index] : controller.filteredList[index] ;
+                                  return _salesCard(
+                                    item.title,
+                                    item.description,
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                 ),
               ),
             ],
@@ -1071,27 +1138,13 @@ class _SalesDetailViewState extends State<SalesDetailView>
   }
 
   onSearchTextChanged(String text) async {
-    if (text.isEmpty || text.length == 0) {
-      _searchQuery.clear();
-      filteredList.clear();
-      filteredList.addAll(controller.salesCard);
-    } else {
-      filteredList.clear();
-      controller.salesCard.forEach((element) {
-        print(text);
-        print(element.cardTitle);
-        if (element.cardTitle.toLowerCase().contains(text.toLowerCase())) {
-          filteredList.add(element);
-          print(filteredList.length.toString());
-        }
-      });
-    }
-    setState(() {});
+controller.getSerach(text,_searchQuery,false,true,false,false);
+
   }
 
   _salesCard(String title, String description) {
     return Container(
-      child: Card(
+      child:Card(
         elevation: 8.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -1120,17 +1173,20 @@ class _SalesDetailViewState extends State<SalesDetailView>
                   alignment: Alignment.bottomRight,
                   child: RaisedButton(
                     onPressed: () {
-                      Get.snackbar("Download", "We are working on it");
+                      var text = textStr.first;
+                      Get.to(SalesDetailView(),arguments:[text]);
+
                     },
                     padding: EdgeInsets.all(0),
                     color: Colors.indigo,
                     textColor: Colors.white,
-                    child: Text('Download'),
+                    child: Text('More'),
                   ))
             ],
           ),
         ),
       ),
+
     );
   }
 }

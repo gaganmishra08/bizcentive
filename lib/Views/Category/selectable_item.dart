@@ -1,6 +1,9 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fixurbiz_app/Utility/firestore_service.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart';
 class SelectableItem extends StatefulWidget {
   const SelectableItem({
     Key key,
@@ -21,8 +24,8 @@ class _SelectableItemState extends State<SelectableItem>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _scaleAnimation;
-   List category = ["Entertainment","Shopping","Education","Charity","Sports","Adventure","Travel","Networking"];
-
+   //List category = ["Entertainment","Shopping","Education","Charity","Sports","Adventure","Travel","Networking"];
+  List<dynamic> category = [].obs;
   @override
   void initState() {
     super.initState();
@@ -32,7 +35,7 @@ class _SelectableItemState extends State<SelectableItem>
       duration: kThemeChangeDuration,
       vsync: this,
     );
-
+    loadCategories();
     _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(
       CurvedAnimation(
         parent: _controller,
@@ -41,6 +44,31 @@ class _SelectableItemState extends State<SelectableItem>
     );
   }
 
+  loadCategories()
+  {
+
+    try{
+      final cat = FirestoreService().categories;
+
+      FirestoreService().categories.getDocuments().then((QuerySnapshot querySnapshot) {
+  querySnapshot.documents.forEach((doc) {
+
+  setState(() {
+    category = doc["categories"];
+  });
+
+
+
+
+
+  });
+  });
+
+
+    } catch(e){
+      Get.snackbar("Error", e.toString());
+    }
+  }
   @override
   void didUpdateWidget(SelectableItem oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -79,11 +107,11 @@ class _SelectableItemState extends State<SelectableItem>
       },
       child: Container(
         alignment: Alignment.center,
-        child: Text(
-          '${category[widget.index]}',
+        child: Obx(()=> Text(
+          category.isEmpty? '':'${category[widget.index]}',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15, color: Colors.white),
-        ),
+        ), ),
       ),
     );
   }

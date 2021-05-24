@@ -33,6 +33,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Bizcentive wants to access your camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Bizcentive wants to access your microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Bizcentive wants to access your photo's</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -50,12 +56,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Bizcentive wants to access your microphone</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Bizcentive wants to access your photo&apos;s</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Bizcentive wants to access your camera</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

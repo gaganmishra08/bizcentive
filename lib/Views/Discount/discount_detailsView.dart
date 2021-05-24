@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:fixurbiz_app/Utility/MyTextFieldDatePicker.dart';
+import 'package:fixurbiz_app/Utility/firestore_service.dart';
 import 'package:fixurbiz_app/Views/Discount/discount_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../main.dart';
 import 'package:get/get.dart';
@@ -14,34 +18,57 @@ class DiscountDetailView extends StatefulWidget {
 
 class _DiscountDetailViewState extends State<DiscountDetailView> {
   GlobalKey _globalKey = GlobalKey();
-  TextEditingController _discountOn1;
-  TextEditingController _titleProduct1;
-  TextEditingController _discountOn2;
-  TextEditingController _titleProduct2;
-  TextEditingController _discountOn3;
-  TextEditingController _titleProduct3;
-  TextEditingController _offerValid;
+  TextEditingController _title;
+  TextEditingController _description;
+  TextEditingController _cost;
+  TextEditingController _location;
+  TextEditingController _city;
+  TextEditingController _state;
+  TextEditingController _country;
+  TextEditingController _zipCode;
+  TextEditingController _email;
+  TextEditingController _phone;
+  TextEditingController _terms;
   String dropdownValue = '5%';
-String friendDropDown = "Yes";
-var str = "product";
-  List  textStr = Get.arguments;
+  String friendDropDown = "Yes";
+  var str = "product";
+  double discount;
+  String discountValue;
+  double reducePrice;
+  double dis;
+  double cost;
+  String valid;
+  String uid;
+  List textStr = Get.arguments;
+ int redumptionCode;
   @override
   void initState() {
-    _discountOn1 = TextEditingController();
-    _titleProduct1 = TextEditingController();
-    _discountOn2 = TextEditingController();
-    _titleProduct2 = TextEditingController();
-    _discountOn3 = TextEditingController();
-    _titleProduct3 = TextEditingController();
-  _offerValid = TextEditingController();
-if (textStr.first.toString() == "DiscountType.Product"){
-  str = "product";
-}else{
-  str = "service";
+    getPrefsData();
+    var rng = new Random();
+    redumptionCode = rng.nextInt(900000) + 100000;
+    _title = TextEditingController();
+    _description = TextEditingController();
+    _cost = TextEditingController();
+    _location = TextEditingController();
+    _city = TextEditingController();
+    _state = TextEditingController();
+    _country = TextEditingController();
+    _zipCode = TextEditingController();
+    _email = TextEditingController();
+    _phone = TextEditingController();
+    _terms = TextEditingController();
+    if (textStr.first.toString() == "DiscountType.Product") {
+      str = "product";
+    } else {
+      str = "service";
     }
     super.initState();
   }
+  getPrefsData() async{
+    final box = GetStorage();
+    uid = box.read("userID");
 
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,14 +81,10 @@ if (textStr.first.toString() == "DiscountType.Product"){
             icon: new Icon(Icons.arrow_back_ios),
             onPressed: () => Get.offNamed(PageIdentifier.discountView),
           ),
-
         ),
         body: SafeArea(
           child: Container(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height / 0.20,
+            height: MediaQuery.of(context).size.height / 0.20,
             padding: EdgeInsets.all(10),
             child: Column(
               children: [
@@ -73,18 +96,19 @@ if (textStr.first.toString() == "DiscountType.Product"){
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Container(
-
                         padding: EdgeInsets.all(10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("What is the title of the discounted $str?",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
+                            Text(
+                              "What is the title of the discounted $str?",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             _inputField(
-                                controller: _discountOn1,
-                                hintText: "Your Answer?",
-                                labelText: "What is the title of the discounted $str?",
+                                controller: _title,
 
                                 onSubmitted: (value) {
                                   if (!value.isNotEmpty) {
@@ -95,13 +119,13 @@ if (textStr.first.toString() == "DiscountType.Product"){
                             SizedBox(height: 10),
                             Text(
                               "Write a brief description of the discounted $str (300 characters max)",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             _inputField(
-
-                                controller: _titleProduct1,
-                                hintText: "What’s the Title of the discounted $str?",
-                                labelText: "What’s the Title of the discounted $str?",
+                                controller: _description,
 
                                 onSubmitted: (value) {
                                   if (!value.isNotEmpty) {
@@ -110,14 +134,15 @@ if (textStr.first.toString() == "DiscountType.Product"){
                                   }
                                 }),
                             SizedBox(height: 10),
-                            Text("What's the actual cost of the $str (MSRP)",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
+                            Text(
+                              "What's the actual cost of the $str (MSRP)",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             _inputField(
-
-                                controller: _discountOn2,
-                                hintText: "What’s the Title of the discounted $str?",
-                                labelText: "What’s the Title of the discounted $str?",
+                                controller: _cost,
 
                                 onSubmitted: (value) {
                                   if (!value.isNotEmpty) {
@@ -128,9 +153,11 @@ if (textStr.first.toString() == "DiscountType.Product"){
                             SizedBox(height: 10),
                             Text(
                               "What's the percentage of discount on the $str (MSRP)",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             Container(
                               width: double.infinity,
                               //color: Colors.indigo[800],
@@ -138,11 +165,13 @@ if (textStr.first.toString() == "DiscountType.Product"){
                               //padding: const EdgeInsets.all(3.0),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.all(Radius.circular(0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(0)),
                                 color: Colors.white,
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: DropdownButton<String>(
                                   hint: Text('Choose'),
                                   // disabledHint: Text('Describe your self',style: TextStyle(color: Colors.white),),
@@ -162,7 +191,6 @@ if (textStr.first.toString() == "DiscountType.Product"){
                                   onChanged: (String newValue) {
                                     setState(() {
                                       dropdownValue = newValue;
-
                                     });
                                   },
                                   items: <String>[
@@ -173,7 +201,8 @@ if (textStr.first.toString() == "DiscountType.Product"){
                                     '9%',
                                     '10%',
                                     'upto 100%'
-                                  ].map<DropdownMenuItem<String>>((String value) {
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(
@@ -188,26 +217,30 @@ if (textStr.first.toString() == "DiscountType.Product"){
                             SizedBox(height: 10),
                             Text(
                               "Offer Valid until",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             MyTextFieldDatePicker(
                               labelText: "Date",
                               prefixIcon: Icon(Icons.date_range),
                               suffixIcon: Icon(Icons.arrow_drop_down),
-                              lastDate: DateTime.now().add(Duration(days: 366)),
+                              lastDate: DateTime.now().add(Duration(days: 365)),
                               firstDate: DateTime.now(),
-                              initialDate: DateTime.now().add(Duration(days: 1)),
+                              initialDate: DateTime.now(),
                               onDateChanged: (selectedDate) {
-                                // Need to save selected date
+                                valid = selectedDate.toString();
                               },
                             ),
-
                             SizedBox(height: 10),
                             Text(
                               "Can the User Refer this Bizcentive to a friend?",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             Container(
                               width: double.infinity,
                               //color: Colors.indigo[800],
@@ -215,11 +248,13 @@ if (textStr.first.toString() == "DiscountType.Product"){
                               //padding: const EdgeInsets.all(3.0),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.all(Radius.circular(0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(0)),
                                 color: Colors.white,
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: DropdownButton<String>(
                                   hint: Text('Choose'),
                                   // disabledHint: Text('Describe your self',style: TextStyle(color: Colors.white),),
@@ -239,14 +274,13 @@ if (textStr.first.toString() == "DiscountType.Product"){
                                   onChanged: (String newValue) {
                                     setState(() {
                                       friendDropDown = newValue;
-
                                     });
                                   },
                                   items: <String>[
                                     'Yes',
                                     'No',
-
-                                  ].map<DropdownMenuItem<String>>((String value) {
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(
@@ -261,104 +295,13 @@ if (textStr.first.toString() == "DiscountType.Product"){
                             SizedBox(height: 10),
                             Text(
                               "Which location is this offer available? (Enter Street Address)",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             _inputField(
-
-                                controller: _titleProduct2,
-                                hintText: "What’s the Title of the discounted $str?",
-                                labelText: "What’s the Title of the discounted $str?",
-
-                                onSubmitted: (value) {
-                                  if (!value.isNotEmpty) {
-                                    Get.snackbar(
-                                        "Alert", "Please fill the field");
-                                  }
-                                }),
-                            SizedBox(height: 10),
-                            Text("City",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-                            _inputField(
-
-                                controller: _discountOn3,
-                                hintText: "What’s the Title of the discounted $str?",
-                                labelText: "What’s the Title of the discounted $str?",
-
-                                onSubmitted: (value) {
-                                  if (!value.isNotEmpty) {
-                                    Get.snackbar(
-                                        "Alert", "Please fill the field");
-                                  }
-                                }),
-                            SizedBox(height: 10),
-                            Text("State",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-                            _inputField(
-
-                                controller: _titleProduct3,
-                                hintText: "What’s the Title of the discounted $str?",
-                                labelText: "What’s the Title of the discounted $str?",
-
-                                onSubmitted: (value) {
-                                  if (!value.isNotEmpty) {
-                                    Get.snackbar(
-                                        "Alert", "Please fill the field");
-                                  }
-                                }),
-
-                            SizedBox(height: 10),
-                            Text("Country",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-                            _inputField(
-
-                                controller: _titleProduct3,
-                                hintText: "What’s the Title of the discounted $str?",
-                                labelText: "What’s the Title of the discounted $str?",
-
-                                onSubmitted: (value) {
-                                  if (!value.isNotEmpty) {
-                                    Get.snackbar(
-                                        "Alert", "Please fill the field");
-                                  }
-                                }),
-                            SizedBox(height: 10),
-                            Text("Zipcode",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-                            _inputField(
-
-                                controller: _titleProduct3,
-
-                                onSubmitted: (value) {
-                                  if (!value.isNotEmpty) {
-                                    Get.snackbar(
-                                        "Alert", "Please fill the field");
-                                  }
-                                }),
-                            SizedBox(height: 10),
-                            Text("Contact Email for this offer",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-                            _inputField(
-
-                                controller: _titleProduct3,
-
-                                onSubmitted: (value) {
-                                  if (!value.isNotEmpty) {
-                                    Get.snackbar(
-                                        "Alert", "Please fill the field");
-                                  }
-                                }),
-                            SizedBox(height: 10),
-                            Text("Contact Phone for this offer",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
-                            _inputField(
-
-                                controller: _titleProduct3,
+                                controller: _location,
 
                                 onSubmitted: (value) {
                                   if (!value.isNotEmpty) {
@@ -368,12 +311,14 @@ if (textStr.first.toString() == "DiscountType.Product"){
                                 }),
                             SizedBox(height: 10),
                             Text(
-                              "Please add appropriate terms and conditions for this offer (to help set realistic expectations between you and the buyer)",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 3,),
+                              "City",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
                             _inputField(
-
-                                controller: _titleProduct3,
+                                controller: _city,
 
                                 onSubmitted: (value) {
                                   if (!value.isNotEmpty) {
@@ -381,61 +326,179 @@ if (textStr.first.toString() == "DiscountType.Product"){
                                         "Alert", "Please fill the field");
                                   }
                                 }),
+                            SizedBox(height: 10),
+                            Text(
+                              "State",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            _inputField(
+                                controller: _state,
 
+                                onSubmitted: (value) {
+                                  if (!value.isNotEmpty) {
+                                    Get.snackbar(
+                                        "Alert", "Please fill the field");
+                                  }
+                                }),
+                            SizedBox(height: 10),
+                            Text(
+                              "Country",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            _inputField(
+                                controller: _country,
+
+                                onSubmitted: (value) {
+                                  if (!value.isNotEmpty) {
+                                    Get.snackbar(
+                                        "Alert", "Please fill the field");
+                                  }
+                                }),
+                            SizedBox(height: 10),
+                            Text(
+                              "Zipcode",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            _inputField(
+                                controller: _zipCode,
+                                onSubmitted: (value) {
+                                  if (!value.isNotEmpty) {
+                                    Get.snackbar(
+                                        "Alert", "Please fill the field");
+                                  }
+                                }),
+                            SizedBox(height: 10),
+                            Text(
+                              "Contact Email for this offer",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            _inputField(
+                                controller: _email,
+                                onSubmitted: (value) {
+                                  if (!value.isNotEmpty) {
+                                    Get.snackbar(
+                                        "Alert", "Please fill the field");
+                                  }
+                                }),
+                            SizedBox(height: 10),
+                            Text(
+                              "Contact Phone for this offer",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            _inputField(
+                                controller: _phone,
+                                onSubmitted: (value) {
+                                  if (!value.isNotEmpty) {
+                                    Get.snackbar(
+                                        "Alert", "Please fill the field");
+                                  }
+                                }),
+                            SizedBox(height: 10),
+                            Text(
+                              "Please add appropriate terms and conditions for this offer (to help set realistic expectations between you and the buyer)",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            _inputField(
+                                controller: _terms,
+                                onSubmitted: (value) {
+                                  if (!value.isNotEmpty) {
+                                    Get.snackbar(
+                                        "Alert", "Please fill the field");
+                                  }
+                                }),
                           ],
                         ),
                       ),
                     ),
                   ),
                 ),
-
                 Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(30.0),
-                      //elevation: 5.0,
-                      child: MaterialButton(
-                        //enabled: _emailController.text.isNotEmpty && _passController.text.isNotEmpty ,
-                        disabledColor: Colors.indigo.withOpacity(0.3),
-                        disabledTextColor: Colors.white54,
-                        onPressed: () =>
-                        {
-                          //alertView(),
-                          Get.offNamed(PageIdentifier.tabPage),
-                        },
-                        minWidth: double.infinity,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        height: 50.0,
-                        color: Colors.indigo,
-                        child: Text(
-                          "Add a Discount Offering",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white,
-                          ),
+                  alignment: Alignment.bottomCenter,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(30.0),
+                    //elevation: 5.0,
+                    child: MaterialButton(
+                      //enabled: _emailController.text.isNotEmpty && _passController.text.isNotEmpty ,
+                      disabledColor: Colors.indigo.withOpacity(0.3),
+                      disabledTextColor: Colors.white54,
+                      onPressed: () => {
+                      discountValue = dropdownValue.substring(0, dropdownValue.length - 1),
+                        dis = double.parse(discountValue),
+                        cost = double.parse(_cost.text),
+                        discount = cost - dis/100 * cost,
+
+                        FirestoreService().saveCard(
+                            str,
+                            "Service",
+                            "Own",
+                            _location.text,
+                            _title.text,
+                            _description.text,
+                            _cost.text,
+                            discountValue,
+                            "$discount",
+                            valid,
+                            uid,
+                            "$redumptionCode",
+                            _phone.text,
+                            _email.text,
+                            friendDropDown,
+                            "",
+                            _country.text,
+                            false, false, false
+
+
+                        ),
+                        Get.offNamed(PageIdentifier.tabPage),
+                      },
+                      minWidth: double.infinity,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      height: 50.0,
+                      color: Colors.indigo,
+                      child: Text(
+                        "Add a Discount Offering",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                
+                ),
               ],
             ),
+          ),
         ),
       ),
-    )
-    ,
-
     );
-
   }
 
-  _inputField({TextEditingController controller,
-    String labelText,
-    String hintText,
-    bool isSecure = false,
-    int maxLines = 1,
-    Function(String) onSubmitted}) {
+  _inputField(
+      {TextEditingController controller,
+      String labelText,
+      String hintText,
+      bool isSecure = false,
+      int maxLines = 1,
+      Function(String) onSubmitted}) {
     return TextField(
       style: TextStyle(fontSize: 17),
       maxLines: maxLines,

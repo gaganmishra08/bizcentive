@@ -250,50 +250,50 @@ class _AddCardState extends State<AddCard> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(30.0),
-                    //elevation: 5.0,
-                    child: MaterialButton(
-                      //enabled: _emailController.text.isNotEmpty && _passController.text.isNotEmpty ,
-                      disabledColor: Colors.indigo.withOpacity(0.3),
-                      disabledTextColor: Colors.white54,
-                      onPressed: () => {
-                        FirestoreService().saveCard(
-                            _bizcentiveType.text,
-                            _bizcentiveSubType.text,
-                            _source.text,
-                            _location.text,
-                            _title.text,
-                            _description.text,
-                            _regularPrice.text,
-                            _discount.text,
-                            _reducedPrice.text,
-                            _validFor.text,
-                            _bezcentiveID.text,
-                            _redemptionID.text,
-                            _phone.text,
-                            _email.text,
-                            _company.text),
-                        Get.offNamed(PageIdentifier.profile),
-                      },
-                      minWidth: MediaQuery.of(context).size.width / 2,
-
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      height: 50.0,
-                      color: Colors.indigo,
-                      child: Text(
-                        "Add",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: Material(
+                //     borderRadius: BorderRadius.circular(30.0),
+                //     //elevation: 5.0,
+                //     child: MaterialButton(
+                //       //enabled: _emailController.text.isNotEmpty && _passController.text.isNotEmpty ,
+                //       disabledColor: Colors.indigo.withOpacity(0.3),
+                //       disabledTextColor: Colors.white54,
+                //       onPressed: () => {
+                //         FirestoreService().saveCard(
+                //             _bizcentiveType.text,
+                //             _bizcentiveSubType.text,
+                //             _source.text,
+                //             _location.text,
+                //             _title.text,
+                //             _description.text,
+                //             _regularPrice.text,
+                //             _discount.text,
+                //             _reducedPrice.text,
+                //             _validFor.text,
+                //             _bezcentiveID.text,
+                //             _redemptionID.text,
+                //             _phone.text,
+                //             _email.text,
+                //             _company.text),
+                //         Get.offNamed(PageIdentifier.profile),
+                //       },
+                //       minWidth: MediaQuery.of(context).size.width / 2,
+                //
+                //       shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(8)),
+                //       height: 50.0,
+                //       color: Colors.indigo,
+                //       child: Text(
+                //         "Add",
+                //         style: TextStyle(
+                //           fontSize: 16.0,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

@@ -1,5 +1,8 @@
+import 'package:fixurbiz_app/Model/cardModel.dart';
 import 'package:fixurbiz_app/Model/sales_Model.dart';
 import 'package:fixurbiz_app/Views/Card/card_view.dart';
+import 'package:fixurbiz_app/Views/Sales/sales_controller.dart';
+import 'package:fixurbiz_app/Views/Sales/sales_detailview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,144 +10,113 @@ import 'package:get/get.dart';
 
 import '../../main.dart';
 import 'activity_controller.dart';
-class AcceptedCard extends StatefulWidget {
-  @override
-  _AcceptedCardState createState() => _AcceptedCardState();
-}
+class AcceptedCard extends StatelessWidget {
+  // TODO: implement build
+  final controller = Get.put(SalesController());
 
-class _AcceptedCardState extends State<AcceptedCard> {
-
-  final controller = Get.put(ActivityController());
-  final key = new GlobalKey<ScaffoldState>();
   final TextEditingController _searchQuery = new TextEditingController();
-  double height, width;
+  bool Is_FromSale = false;
   String _searchText = "";
-  var filteredList = List<ActivityModel>().obs;
-  @override
-  void initState() {
-    super.initState();
 
 
-    filteredList.addAll(controller.activityCard);
 
-  }
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    print(Get.arguments);
+    controller.loadSavedCards();
+    // TODO: implement build
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Accepted Bizcentive Card'),
+      appBar: Is_FromSale? null : AppBar(
         centerTitle: true,
+        title: Text(Get.arguments.first),
         backgroundColor: Colors.indigo,
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios),
           onPressed: () => Get.offNamed(PageIdentifier.activityView),
         ),
-
       ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: new Card(
-                        child: new ListTile(
-                          leading: new Icon(Icons.search),
-                          title: new TextField(
-                            controller: _searchQuery,
-                            decoration: new InputDecoration(
-                                hintText: 'Search',
-                                border: InputBorder.none),
-                            onChanged: onSearchTextChanged,
-                          ),
-                          trailing: new IconButton(
-                            icon: new Icon(Icons.cancel),
-                            onPressed: () {
-                              onSearchTextChanged('');
-                            },
-                          ),
-                        )),
+      body:Obx(()=> controller.acceptedCards.isEmpty ? Center(child:Text("No card is Available"),):SafeArea(
+        child:  Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: new Card(
+                          child: new ListTile(
+                            leading: new Icon(Icons.search),
+                            title: new TextField(
+                              controller: _searchQuery,
+                              decoration: new InputDecoration(
+                                  hintText: 'Search', border: InputBorder.none),
+                              onChanged: onSearchTextChanged,
+                            ),
+                            trailing: new IconButton(
+                              icon: new Icon(Icons.cancel),
+                              onPressed: () {
+                                onSearchTextChanged('');
+                              },
+                            ),
+                          )),
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Icon(FontAwesomeIcons.slidersH),
-                  ),
-                ),
-              ],
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     Container(
-            //         padding: EdgeInsets.only(left: 3),
-            //         child: Text(
-            //           'Choose from any of our Sales Services ',
-            //           style: TextStyle(
-            //             fontWeight: FontWeight.bold,
-            //             color: Colors.black,
-            //           ),
-            //         ))
-            //   ],
-            // ),
-            SizedBox(
-              height: 3,
-            ),
-            Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: filteredList.length,
-                itemBuilder: (context, index) {
-                  ActivityModel item = filteredList[index];
-                  return _activityCard(
-                    item.cardTitle,
-                    item.description,
-                  );
-                },
+                  // Expanded(
+                  //   flex: 1,
+                  //   child: FlatButton(
+                  //     onPressed: () {},
+                  //     child: Icon(FontAwesomeIcons.slidersH),
+                  //   ),
+                  // ),
+
+                ],
               ),
-            ),
-          ],
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+
+                  Container(padding:EdgeInsets.only(left:3 ),child: Text('Choose from any of our Sales Services ',style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black,),))
+                ],
+              ),
+              SizedBox(height: 3,),
+              Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount:  controller.filteredList.isEmpty ? controller.acceptedCards.length: controller.filteredList.length,
+                  itemBuilder: (context, index) {
+                    CardElement item = controller.filteredList.isEmpty ? controller.acceptedCards[index] : controller.filteredList[index];
+                    return _salesCard(
+                      item.title,
+                      item.description,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+      ),
+
     );
+
+  }
+  onSearchTextChanged(String text) async {
+
+    controller.getSerach(text,_searchQuery,false,false,false,true);
+
+
   }
 
-  onSearchTextChanged(String text) async {
-    if (text.isEmpty || text.length == 0) {
-      _searchQuery.clear();
-      filteredList.clear();
-      filteredList.addAll(controller.activityCard);
-    } else {
-      filteredList.clear();
-      controller.activityCard.forEach((element) {
-        print(text);
-        print(element.cardTitle);
-        if (element.cardTitle.toLowerCase().contains(text.toLowerCase())) {
-          filteredList.add(element);
-          print(filteredList.length.toString());
-        }
-      });
-    }
-    setState(() {});
-  }
-  _activityCard(String title, String description) {
+  _salesCard(String title, String description) {
     return Container(
-      child: Card(
+      child:Card(
         elevation: 8.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -173,8 +145,9 @@ class _AcceptedCardState extends State<AcceptedCard> {
                   alignment: Alignment.bottomRight,
                   child: RaisedButton(
                     onPressed: () {
+                      var text = Get.arguments.first;
+                      Get.to(SalesDetailView(),arguments:[text]);
 
-                      Get.to(CardView(),arguments:true );
                     },
                     padding: EdgeInsets.all(0),
                     color: Colors.indigo,
@@ -185,6 +158,8 @@ class _AcceptedCardState extends State<AcceptedCard> {
           ),
         ),
       ),
+
     );
   }
+
 }

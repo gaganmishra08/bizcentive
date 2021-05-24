@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>942734029726-um59f3dk7fscg1se2mibq8vd0rfvuohc.apps.googleusercontent.com</string>
+	<string>605228867310-rks5cjn6g13rhcfukkq62kmvos1dl679.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.942734029726-um59f3dk7fscg1se2mibq8vd0rfvuohc</string>
+	<string>com.googleusercontent.apps.605228867310-rks5cjn6g13rhcfukkq62kmvos1dl679</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>605228867310-ba0ljoh7712afig7au3hkmd6usg517rr.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAMgwgGmb0qRmG6FDhB_N-yLuraXTqIhHI</string>
+	<string>AIzaSyB1iXblLB4hRRh1SJ75t_EKlGJkEXaRre0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>942734029726</string>
+	<string>605228867310</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.fixurbizApp</string>
+	<string>com.example.bizcentiveApp</string>
 	<key>PROJECT_ID</key>
-	<string>fixurbiz-37813</string>
+	<string>bizcentive-e312f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fixurbiz-37813.appspot.com</string>
+	<string>bizcentive-e312f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:942734029726:ios:5b441e318269f4d66b5c8f</string>
+	<string>1:605228867310:ios:e0b925745fc61bc30a5dff</string>
 </dict>
 </plist>

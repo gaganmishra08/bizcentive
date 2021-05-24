@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixurbiz_app/Utility/appImage.dart';
 import 'package:fixurbiz_app/Utility/firestore_service.dart';
 import 'package:fixurbiz_app/Utility/firestore_service.dart';
@@ -6,6 +7,7 @@ import 'package:fixurbiz_app/Utility/shared_preferences.dart';
 import 'package:fixurbiz_app/Views/Category/selectCategoryView.dart';
 import 'package:flutter/material.dart';
 import 'package:fixurbiz_app/main.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class SignUpView extends StatefulWidget {
@@ -169,6 +171,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   .then((value) {
 
                               if(value != null) {
+                                // FirestoreService().saveCategories();
                               SharedPreference().addStringToSF(SharedPreference().userID,value.uid );
                               Get.to(SelectCategory(),arguments:[_character]);
 
@@ -311,6 +314,8 @@ class _SignUpViewState extends State<SignUpView> {
     Function onSuffixIconClick,
     Function(String) onSubmitted}) {
     return TextField(
+        inputFormatters: [BlacklistingTextInputFormatter(
+        new RegExp(r"\s\b|\b\s"),),],
       style: TextStyle(fontSize: 17),
       maxLines: maxLines,
       keyboardType: keyboardType,

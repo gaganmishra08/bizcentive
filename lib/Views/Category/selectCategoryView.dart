@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixurbiz_app/Utility/firestore_service.dart';
 import 'package:fixurbiz_app/main.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +15,42 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
- // String dropdownValue = 'Individual';
+  // String dropdownValue = 'Individual';
   final controller = DragSelectGridViewController();
- List<String> selectedCategory = [];
-  List category = ["Entertainment","Shopping","Education","Charity","Sports","Adventure","Travel","Networking"];
+  List<String> selectedCategory = [];
+  List<dynamic> category = [].obs;
   List signupType = Get.arguments;
   var _visible = false;
+
   @override
   void initState() {
     super.initState();
     controller.addListener(scheduleRebuild);
-    if(signupType.first.toString() == "SignupType.Business") {
+
+    if (signupType.first.toString() == "SignupType.Business") {
       _visible = true;
+    }
+    loadCategories();
+  }
+
+  loadCategories() {
+    try {
+
+      FirestoreService()
+          .categories
+          .getDocuments()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.documents.forEach((doc) {
+
+          setState(() {
+            category = doc["categories"];
+          });
+
+
+        });
+      });
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
     }
   }
 
@@ -69,72 +94,86 @@ class _SelectCategoryState extends State<SelectCategory> {
                 ),
                 SizedBox(height: Get.height * 0.02),
 
-          Visibility(
-                child:Text(
-                  "Bizcentive Offers",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.indigo,
-                      fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.left,
-                ), visible:_visible ,),
-                Visibility(child:Text(
-                  "1. Expert Consultants",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.indigo,
-                      fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.left,
-                ),visible:_visible),
-            Visibility(child:Text(
-  "2. Business Services",
-  style: TextStyle(
-      fontSize: 16,
-      color: Colors.indigo,
-      fontWeight: FontWeight.w500),
-  textAlign: TextAlign.left,
-),visible: _visible) ,
-
-
-            Visibility(child: Text(
-                "3. Investors and Mentors",
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.indigo,
-                    fontWeight: FontWeight.w500),
-                textAlign: TextAlign.left,
-              ),visible:_visible),
-            Visibility(child:  Text(
-                "4. Govt grants and opportunities",
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.indigo,
-                    fontWeight: FontWeight.w500),
-                textAlign: TextAlign.left,
-              ),visible:_visible),
-                SizedBox(height: 10,),
-
-           Text("And Amazing everyday Deals, called Bizcentives",
+                Visibility(
+                  child: Text(
+                    "Bizcentive Offers",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.indigo,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.left,
+                  ),
+                  visible: _visible,
+                ),
+                Visibility(
+                    child: Text(
+                      "1. Expert Consultants",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.indigo,
                           fontWeight: FontWeight.w500),
                       textAlign: TextAlign.left,
                     ),
-                    SizedBox(height: 10,),
-           Text(
-                      "So, for us to customize deals to match your preferences, please select categories in which you’d like to receive offers and deals",
+                    visible: _visible),
+                Visibility(
+                    child: Text(
+                      "2. Business Services",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.indigo,
                           fontWeight: FontWeight.w500),
                       textAlign: TextAlign.left,
                     ),
+                    visible: _visible),
+
+                Visibility(
+                    child: Text(
+                      "3. Investors and Mentors",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+                    visible: _visible),
+                Visibility(
+                    child: Text(
+                      "4. Govt grants and opportunities",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+                    visible: _visible),
+                SizedBox(
+                  height: 10,
+                ),
+
+                Text(
+                  "And Amazing everyday Deals, called Bizcentives",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.indigo,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.left,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "So, for us to customize deals to match your preferences, please select categories in which you’d like to receive offers and deals",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.indigo,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.left,
+                ),
 
                 SizedBox(height: 10),
 
                 /// DropDown Container
-               /* Container(
+                /* Container(
                   width: double.infinity,
                   //color: Colors.indigo[800],
                   //margin: const EdgeInsets.all(3.0),
@@ -203,39 +242,46 @@ class _SelectCategoryState extends State<SelectCategory> {
                   ),
                 ),
 */
-                Expanded(
-                  child: DragSelectGridView(
+                Obx(
+                  () => category.isEmpty
+                      ? Center(child: CircularProgressIndicator(),)
+                      : Expanded(
+                          child: DragSelectGridView(
+                            gridController: controller,
+                            padding: const EdgeInsets.all(8),
+                            itemCount: category.length,
+                            itemBuilder: (context, index, selected) {
+                              if (selected &&
+                                  !selectedCategory.contains(category[index])) {
+                                selectedCategory.add(category[index]);
+                              }
 
-                    gridController: controller,
-                    padding: const EdgeInsets.all(8),
-                    itemCount: 8,
-                    itemBuilder: (context, index, selected) {
-                      if(selected && !selectedCategory.contains(category[index])){
-                        selectedCategory.add(category[index]);
-                      }
-
-                      return SelectableItem(
-                        index: index,
-                         color: Colors.indigo,
-                        selected: selected,
-
-                      );
-                    },
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8.0,
-                    ),
-                  ),
+                              return SelectableItem(
+                                index: index,
+                                color: Colors.indigo,
+                                selected: selected,
+                              );
+                            },
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8.0,
+                            ),
+                          ),
+                        ),
                 ),
+
                 SizedBox(height: 10),
-                Center(child: Text("Thanks! You’re all set",
+                Center(
+                    child: Text(
+                  "Thanks! You’re all set",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.indigo,
                     fontWeight: FontWeight.bold,
-                  ),)),
+                  ),
+                )),
                 SizedBox(height: 10),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -259,19 +305,19 @@ class _SelectCategoryState extends State<SelectCategory> {
                         //side: BorderSide(color: Colors.red),
                       ),
                       onPressed: () {
-
-                        if(signupType.first.toString() == "SignupType.Business") {
-                          FirestoreService().saveUserData("Business", selectedCategory);
+                        if (signupType.first.toString() ==
+                            "SignupType.Business") {
+                          FirestoreService()
+                              .saveUserData("Business", selectedCategory);
                           Get.offNamed(PageIdentifier.adviser);
-                        }
-                        else if (signupType.first.toString() == "SignupType.Individual" ){
-                          FirestoreService().saveUserData("Individual", selectedCategory);
+                        } else if (signupType.first.toString() ==
+                            "SignupType.Individual") {
+                          FirestoreService()
+                              .saveUserData("Individual", selectedCategory);
+                          Get.toNamed(PageIdentifier.tabPage);
+                        } else {
                           Get.toNamed(PageIdentifier.tabPage);
                         }
-                        else{
-                          Get.toNamed(PageIdentifier.tabPage);
-                        }
-
                       },
                     ),
                   ),
